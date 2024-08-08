@@ -1,0 +1,268 @@
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f2e6d9;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header {
+    background-color: #a01010;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 24px;
+    font-weight: bold;
+    position: relative;
+  }
+
+  .top-right-buttons {
+    display: flex;
+    gap: 10px;
+  }
+
+  .top-right-buttons button {
+    background-color: #e6b800;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .container {
+    padding: 20px;
+  }
+
+  .top-menu {
+    display: flex;
+    justify-content: space-between;
+    background-color: #e6b800;
+    padding: 10px;
+  }
+
+  .top-menu div {
+    background-color: #fff5cc;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    flex: 1;
+    margin: 0 5px;
+    cursor: pointer;
+  }
+
+  .top-menu div img {
+    width: 50px;
+    height: 50px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .attendance-section {
+    background-color: #a01010;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+  }
+
+  .attendance-section h2 {
+    margin-top: 0;
+  }
+
+  .attendance-section .controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .attendance-section .controls .right-buttons {
+    display: flex;
+    align-items: center;
+  }
+
+  .attendance-section .controls .right-buttons button {
+    background-color: #e6b800;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #f9f9f9;
+    color: black;
+  }
+
+  .attendance-table th,
+  .attendance-table td {
+    padding: 10px;
+    text-align: left;
+  }
+
+  .attendance-table th {
+    background-color: #e6b800;
+  }
+
+  .attendance-table td {
+    background-color: #fff5cc;
+  }
+
+  /* Modal styles */
+  .modal {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none; 
+  }
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  #chart {
+    width: 100%;
+    height: 500px; 
+  }
+
+  @media (max-width: 320px) {
+    .header {
+      font-size: 18px;
+      padding: 10px 0;
+    }
+
+    .top-right-buttons {
+      position: static;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .top-right-buttons button {
+      padding: 5px 10px;
+      font-size: 12px;
+    }
+
+    .container {
+      padding: 10px;
+    }
+
+    .top-menu {
+      flex-direction: column;
+    }
+
+    .top-menu div {
+      margin: 5px 0;
+    }
+
+    .top-menu div img {
+      width: 30px;
+      height: 30px;
+    }
+
+    .attendance-section {
+      padding: 10px;
+    }
+
+    .attendance-section .controls {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .attendance-section .controls .right-buttons {
+      margin-top: 10px;
+    }
+
+    .attendance-table th,
+    .attendance-table td {
+      padding: 5px;
+      font-size: 12px;
+    }
+  }
+
+  @media (min-width: 321px) and (max-width: 375px) {
+    .header {
+      font-size: 20px;
+    }
+
+    .top-right-buttons button {
+      font-size: 14px;
+    }
+
+    .top-menu div img {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  @media (min-width: 376px) and (max-width: 425px) {
+    .top-menu {
+      flex-wrap: wrap;
+    }
+
+    .top-menu div {
+      flex: 1 1 calc(50% - 10px);
+      margin: 5px;
+    }
+  }
+
+  @media (min-width: 426px) and (max-width: 768px) {
+    .header {
+      padding: 20px 0;
+    }
+
+    .top-right-buttons {
+      position: static;
+      justify-content: center;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .top-menu {
+      flex-wrap: wrap;
+    }
+
+    .top-menu div {
+      flex: 1 1 calc(50% - 10px);
+      margin: 5px;
+    }
+  }
+
+  @media (min-width: 769px) {
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .top-right-buttons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+  }
