@@ -31,7 +31,7 @@
         </li>
       </ul>
       <div class="logout">
-        <button>LOG OUT</button>
+        <button id="logoutBtn">LOG OUT</button>
       </div>
     </aside>
     <main class="main-content">
