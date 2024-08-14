@@ -12,5 +12,32 @@ togglePassword.addEventListener("click", function () {
 loginForm.addEventListener("submit", function (event) {
   event.preventDefault();
 
-  window.location.href = "sign_up_form.html";
+  const specialKey = document
+    .getElementById("username")
+    .value.trim()
+    .toUpperCase();
+  const password = document.getElementById("password").value.trim();
+
+  if (specialKey === "" || password === "") {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  // Set the correct action URL for the form based on the special key
+  let actionUrl;
+  if (
+    specialKey.startsWith("S") ||
+    specialKey.startsWith("P") ||
+    specialKey.startsWith("A")
+  ) {
+    actionUrl = "../php/login.php"; // Use the correct login script
+  } else {
+    alert("Invalid Special Key.");
+    return;
+  }
+
+  // Set the form's action to the correct URL and submit it
+  loginForm.action = actionUrl;
+  loginForm.method = "POST"; // Ensure the method is POST
+  loginForm.submit(); // Submit the form to the action URL
 });
