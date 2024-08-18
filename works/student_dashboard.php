@@ -4,6 +4,7 @@ if (!isset($_SESSION['student_number'])) {
     header("Location: ../works/log_in_form.html");
     exit();
 }
+
 require '../db_connect.php';
 
 $student_number = $_SESSION['student_number'];
@@ -30,31 +31,35 @@ $dates_json = json_encode($dates);
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Student Information</title>
+    <title>Student Dashboard</title>
     <link rel="stylesheet" href="../styles/student_dashboard_styles.css" />
     <script type="text/javascript" src="../js/student_dashboard_script.js" defer></script>
 </head>
 <body>
-    <header>
-        <h2 id="header">Student Information</h2>
-        <div class="gold-line"></div>
-        <div id="buttons">
-            <button id="logout">Log Out</button>
-            <a href="attendance_details.php"><button id="viewAttendance">View Attendance Details</button></a>
+    <div class="sidebar">
+        <h1>ATTENDIFY</h1>
+        <div class="profile">
+            <img src="path-to-profile-image" alt="Profile Picture">
+            <h2>Welcome back, <?php echo htmlspecialchars($student['firstname']); ?>!</h2>
+            <p>Name: <?php echo htmlspecialchars($student['firstname'] . ' ' . $student['lastname']); ?></p>
+            <p>Email: <?php echo htmlspecialchars($student['email']); ?></p>
+            <p>Student no.: <?php echo htmlspecialchars($student['student_number']); ?></p>
+            <p>User: S001</p> <!-- Assuming user code is static or retrieved elsewhere -->
+            <p>Section: <?php echo htmlspecialchars($_SESSION['section']); ?></p>
         </div>
-    </header>
-    <div id="content">
-        <div id="info">
-            <div class="greeting">
-                <h1 id="student-name">Hello, <?php echo htmlspecialchars($_SESSION['student_name']); ?></h1>
+        <button id="logout_button">LOG OUT</button>
+    </div>
+    <div class="main-content">
+        <h2>Student Dashboard</h2>
+        <div class="attendance-panel">
+            <div class="attendance-header">
+                <select>
+                    <option value="webdev">Web Dev</option>
+                </select>
+                <button id="view_attendance">View</button>
             </div>
-            <div class="student-info">
-                <div id="name">Name: <?php echo htmlspecialchars($student['firstname'] . ' ' . $student['lastname']); ?></div>
-                <div id="gender">Gender: <?php echo htmlspecialchars($student['gender']); ?></div>
-                <div id="email">Email: <?php echo htmlspecialchars($student['email']); ?></div>
-                <div id="section">Section: <?php echo htmlspecialchars($_SESSION['section']); ?></div>
-                <div id="studentnumber">Student Number: <?php echo htmlspecialchars($student['student_number']); ?></div>
-                <div id="contactnumber">Contact Number: <?php echo htmlspecialchars($student['phone']); ?></div>
+            <div class="attendance-details">
+                <canvas id="attendanceChart"></canvas>
             </div>
         </div>
     </div>
