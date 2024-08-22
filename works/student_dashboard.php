@@ -33,7 +33,10 @@ $dates_json = json_encode($dates);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Student Dashboard</title>
     <link rel="stylesheet" href="../styles/student_dashboard_styles.css" />
-    <script type="text/javascript" src="../js/student_dashboard_script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript">
+        const attendanceDates = <?php echo $dates_json; ?>;
+    </script>
 </head>
 <body>
     <div class="sidebar">
@@ -63,5 +66,47 @@ $dates_json = json_encode($dates);
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            const ctx = document.getElementById('attendanceChart').getContext('2d');
+
+            // Assuming attendanceDates is an array of date strings
+            const data = {
+                labels: attendanceDates, // X-axis labels (dates)
+                datasets: [{
+                    label: 'Attendance',
+                    data: attendanceDates.map(() => 1), // Y-axis values (e.g., all 1 for attended)
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            };
+
+            const config = {
+                type: 'line', // You can change this to 'bar', 'pie', etc.
+                data: data,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Attendance Count'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        }
+                    }
+                }
+            };
+
+            const attendanceChart = new Chart(ctx, config);
+        });
+    </script>
 </body>
 </html>
