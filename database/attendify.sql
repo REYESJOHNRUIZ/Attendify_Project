@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 16, 2024 at 05:27 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Aug 16, 2024 at 01:22 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.1.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,6 +36,14 @@ CREATE TABLE `admin` (
   `datetime_updated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `username`, `password`, `admin_id`, `datetime_created`, `datetime_updated`) VALUES
+(1, 'admin1', 'password123', 'ADMIN-001', '2024-07-19 15:01:15', '2024-07-19 15:01:15'),
+(2, 'admin2', 'password456', 'ADMIN-002', '2024-07-19 15:01:15', '2024-07-19 15:01:15');
+
 -- --------------------------------------------------------
 
 --
@@ -58,8 +66,34 @@ CREATE TABLE `attendance` (
 --
 
 INSERT INTO `attendance` (`id`, `class_no`, `date`, `status`, `attendance_id`, `student_no`, `datetime_created`, `datetime_updated`) VALUES
-(1, '', '', 'Present', 'att1', '', '2024-06-08 05:23:41', '2024-06-08 05:26:48'),
-(2, '', '', 'ABSENT', 'att2', '', '2024-06-08 05:27:53', '2024-06-08 05:28:12');
+(3, 'DIT2-1', '2024-07-01', 'Present', 'A001', 'S0001', '2024-07-20 01:38:53', '2024-07-20 01:38:53'),
+(4, 'DIT2-1', '2024-07-01', 'Absent', 'A002', 'S0002', '2024-07-20 01:38:53', '2024-07-20 01:38:53'),
+(5, 'DIT2-1', '2024-07-01', 'Present', 'A003', 'S0003', '2024-07-20 01:38:53', '2024-07-20 01:38:53'),
+(6, 'DIT2-1', '2024-07-01', 'Present', 'A004', 'S0004', '2024-07-20 01:38:53', '2024-07-20 01:38:53'),
+(7, 'DIT2-1', '2024-07-01', 'Late', 'A005', 'S0005', '2024-07-20 01:38:53', '2024-07-20 01:38:53'),
+(8, 'DIT2-1', '2024-07-01', 'Present', 'A006', 'S0006', '2024-07-20 01:38:53', '2024-07-20 01:38:53'),
+(9, 'DIT2-1', '2024-07-01', 'Absent', 'A007', 'S0007', '2024-07-20 01:38:53', '2024-07-20 01:38:53'),
+(10, 'DIT2-1', '2024-07-01', 'Present', 'A008', 'S0008', '2024-07-20 01:38:53', '2024-07-20 01:38:53'),
+(11, 'DIT2-1', '2024-07-01', 'Present', 'A009', 'S0009', '2024-07-20 01:38:53', '2024-07-20 01:38:53'),
+(12, 'DIT2-1', '2024-07-01', 'Present', 'A010', 'S0010', '2024-07-20 01:38:53', '2024-07-20 01:38:53'),
+(13, 'BSIT2-1', '2024-07-02', 'Present', 'A011', 'S0016', '2024-07-20 01:38:53', '2024-07-20 02:44:02'),
+(14, 'BSIT2-1', '2024-07-01', 'Present', 'A012', 'S0017', '2024-07-20 01:38:53', '2024-07-20 01:38:53'),
+(15, 'BSIT2-1', '2024-07-01', 'Absent', 'A013', 'S0018', '2024-07-20 01:38:53', '2024-07-20 01:38:53'),
+(16, 'BSIT2-1', '2024-07-01', 'Present', 'A014', 'S0019', '2024-07-20 01:38:53', '2024-07-20 01:38:53'),
+(17, 'BSIT2-1', '2024-07-01', 'Late', 'A015', 'S0020', '2024-07-20 01:38:53', '2024-07-20 01:38:53'),
+(18, 'BSIT2-1', '2024-07-01', 'Present', 'A016', 'S0021', '2024-07-20 01:38:53', '2024-07-20 01:38:53'),
+(19, 'BSIT2-1', '2024-07-01', 'Absent', 'A017', 'S0022', '2024-07-20 01:38:53', '2024-07-20 01:38:53'),
+(20, 'BSIT2-1', '2024-07-01', 'Present', 'A018', 'S0023', '2024-07-20 01:38:53', '2024-07-20 01:38:53'),
+(21, 'BSIT2-1', '2024-07-01', 'Present', 'A019', 'S0024', '2024-07-20 01:38:53', '2024-07-20 01:38:53'),
+(22, 'BSIT2-1', '2024-07-01', 'Present', 'A020', 'S0025', '2024-07-20 01:38:53', '2024-07-20 01:38:53'),
+(23, 'BSIT2-1', '2024-07-01', 'Present', 'A021', 'S0026', '2024-07-20 01:38:53', '2024-07-20 01:38:53'),
+(24, 'BSIT2-1', '2024-07-01', 'Present', 'A022', 'S0027', '2024-07-20 01:38:53', '2024-07-20 01:38:53'),
+(25, 'BSIT2-1', '2024-07-01', 'Absent', 'A023', 'S0028', '2024-07-20 01:38:53', '2024-07-20 01:38:53'),
+(26, 'BSIT2-1', '2024-07-01', 'Present', 'A024', 'S0029', '2024-07-20 01:38:53', '2024-07-20 01:38:53'),
+(27, 'BSIT2-1', '2024-07-01', 'Present', 'A025', 'S0030', '2024-07-20 01:38:53', '2024-07-20 01:38:53'),
+(28, 'BSIT2-1', '2024-07-01', 'Present', 'A026', 'S0031', '2024-07-20 01:38:53', '2024-07-20 01:38:53'),
+(29, 'BSIT2-1', '2024-07-01', 'Present', 'A027', 'S0032', '2024-07-20 01:38:53', '2024-07-20 01:38:53'),
+(30, 'BSIT2-1', '2024-07-01', 'Absent', 'A028', 'S0033', '2024-07-20 01:38:53', '2024-07-20 01:38:53');
 
 -- --------------------------------------------------------
 
@@ -76,6 +110,40 @@ CREATE TABLE `class` (
   `datetime_created` timestamp NOT NULL DEFAULT current_timestamp(),
   `datetime_updated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `class`
+--
+
+INSERT INTO `class` (`id`, `class_no`, `student_no`, `courses_id`, `prof_id`, `datetime_created`, `datetime_updated`) VALUES
+(1, 'DIT2-1', 'S0001', 'C001', 'P0001', '2024-07-20 01:30:26', '2024-07-20 01:30:26'),
+(2, 'DIT2-1', 'S0002', 'C001', 'P0001', '2024-07-20 01:30:26', '2024-07-20 01:30:26'),
+(3, 'DIT2-1', 'S0003', 'C001', 'P0001', '2024-07-20 01:30:26', '2024-07-20 01:30:26'),
+(4, 'DIT2-1', 'S0004', 'C001', 'P0001', '2024-07-20 01:30:26', '2024-07-20 01:30:26'),
+(5, 'DIT2-1', 'S0005', 'C001', 'P0001', '2024-07-20 01:30:26', '2024-07-20 01:30:26'),
+(6, 'DIT2-1', 'S0006', 'C001', 'P0001', '2024-07-20 01:30:26', '2024-07-20 01:30:26'),
+(7, 'DIT2-1', 'S0007', 'C001', 'P0001', '2024-07-20 01:30:26', '2024-07-20 01:30:26'),
+(8, 'DIT2-1', 'S0008', 'C001', 'P0001', '2024-07-20 01:30:26', '2024-07-20 01:30:26'),
+(9, 'DIT2-1', 'S0009', 'C001', 'P0001', '2024-07-20 01:30:26', '2024-07-20 01:30:26'),
+(10, 'DIT2-1', 'S0010', 'C001', 'P0001', '2024-07-20 01:30:26', '2024-07-20 01:30:26'),
+(11, 'BSIT2-1', 'S0016', 'C002', 'P0002', '2024-07-20 01:30:26', '2024-07-20 01:30:26'),
+(12, 'BSIT2-1', 'S0017', 'C002', 'P0002', '2024-07-20 01:30:26', '2024-07-20 01:30:26'),
+(13, 'BSIT2-1', 'S0018', 'C002', 'P0002', '2024-07-20 01:30:26', '2024-07-20 01:30:26'),
+(14, 'BSIT2-1', 'S0019', 'C002', 'P0002', '2024-07-20 01:30:26', '2024-07-20 01:30:26'),
+(15, 'BSIT2-1', 'S0020', 'C002', 'P0002', '2024-07-20 01:30:26', '2024-07-20 01:30:26'),
+(16, 'BSIT2-1', 'S0021', 'C002', 'P0002', '2024-07-20 01:30:26', '2024-07-20 01:30:26'),
+(17, 'BSIT2-1', 'S0022', 'C002', 'P0002', '2024-07-20 01:30:26', '2024-07-20 01:30:26'),
+(18, 'BSIT2-1', 'S0023', 'C002', 'P0002', '2024-07-20 01:30:26', '2024-07-20 01:30:26'),
+(19, 'BSIT2-1', 'S0024', 'C002', 'P0002', '2024-07-20 01:30:26', '2024-07-20 01:30:26'),
+(20, 'BSIT2-1', 'S0025', 'C002', 'P0002', '2024-07-20 01:30:26', '2024-07-20 01:30:26'),
+(21, 'BSIT2-1', 'S0026', 'C002', 'P0002', '2024-07-20 01:30:26', '2024-07-20 01:30:26'),
+(22, 'BSIT2-1', 'S0027', 'C002', 'P0002', '2024-07-20 01:30:26', '2024-07-20 01:30:26'),
+(23, 'BSIT2-1', 'S0028', 'C002', 'P0002', '2024-07-20 01:30:26', '2024-07-20 01:30:26'),
+(24, 'BSIT2-1', 'S0029', 'C002', 'P0002', '2024-07-20 01:30:26', '2024-07-20 01:30:26'),
+(25, 'BSIT2-1', 'S0030', 'C002', 'P0002', '2024-07-20 01:30:26', '2024-07-20 01:30:26'),
+(26, 'BSIT2-1', 'S0031', 'C002', 'P0002', '2024-07-20 01:30:26', '2024-07-20 01:30:26'),
+(27, 'BSIT2-1', 'S0032', 'C002', 'P0002', '2024-07-20 01:30:26', '2024-07-20 01:30:26'),
+(28, 'BSIT2-1', 'S0033', 'C002', 'P0002', '2024-07-20 01:30:26', '2024-07-20 01:30:26');
 
 -- --------------------------------------------------------
 
@@ -97,7 +165,8 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`id`, `courses_id`, `course_def`, `course_code`, `datetime_created`, `datetime_updated`) VALUES
-(1, 'COMP-002', 'PROGRAMMING', 'COMP-002', '2024-06-08 05:22:05', '2024-06-08 05:22:05');
+(1, 'C001', 'Web Development', 'WEBDEV', '2024-07-20 01:32:08', '2024-07-20 01:32:08'),
+(2, 'C002', 'Object-Oriented Programming', 'OOP', '2024-07-20 01:32:08', '2024-07-20 01:32:08');
 
 -- --------------------------------------------------------
 
@@ -129,7 +198,8 @@ CREATE TABLE `professor` (
 --
 
 INSERT INTO `professor` (`id`, `firstname`, `middlename`, `lastname`, `birthday`, `age`, `gender`, `address`, `email`, `phone`, `course`, `status`, `password`, `prof_id`, `datetime_created`, `datetime_updated`) VALUES
-(1, 'Shamma', 'Bergado', 'Mendoza', 'November 1,1989', 0, 'Female', 'purok 18 sandatahan street zone 6 south signal village Taguig City', 'shammamendoza@gmail.com', 9669631642, 'COMP-002', 'Part time Professor', 1234567890, '', '2024-06-08 05:20:00', '2024-06-08 05:20:00');
+(1, 'Steven', 'N/A', 'Villarosa', 'N/A', 0, '29', 'N/A', 'stevenvillarosa@gmail.com', 0, 'WebDev', 'Full Time', 1234567890, 'P0001', '2024-07-20 01:34:01', '2024-07-21 11:36:05'),
+(2, 'Francis', 'N/A', 'Franco', 'N/A', 0, '30', 'N/A', 'francisfranco@gmail.com', 0, 'OOP', 'Part time', 1234567890, 'P0002', '2024-07-20 01:34:01', '2024-07-21 11:35:47');
 
 -- --------------------------------------------------------
 
@@ -159,8 +229,39 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`id`, `firstname`, `middlename`, `lastname`, `birthday`, `age`, `gender`, `address`, `email`, `phone`, `password`, `datetime_created`, `datetime_updated`, `student_number`) VALUES
-(1, 'John Ruiz', 'P', 'Reyes', '', 23, 'Male', 'Central Signal', 'johnruizreyes@gmail.com', 9123456789, 'akoaysibabyboy', '2024-06-08 05:13:22', '2024-06-08 05:13:22', '2022-00001-TG-0'),
-(2, 'Paul Angelo', ' ', 'Reyes', '', 20, 'Male', 'Lower Bicutan', 'paulangeloreyes@gmail.com', 9123456789, 'pagodnasabuhay', '2024-06-08 05:13:22', '2024-06-08 05:13:22', '2022-00002-TG-0');
+(1, 'Jheferson Zambra', 'N/A', 'Añonuevo', 'N/A', 0, 'Male', 'N/A', 'jhefersonzanonuevo@gmail.com', 9499594451, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', 'S0001'),
+(2, 'Mark Louie Calzado', 'N/A', 'Cahigan', 'N/A', 0, 'Male', 'N/A', 'markcahigan54@gmail.com', 9204535357, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', 'S0002'),
+(3, 'Elidia', 'N/A', 'Dacuag', 'N/A', 0, 'Female', 'N/A', 'elidia.dacuag@gmail.com', 9207305342, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', 'S0003'),
+(4, 'John Deniel Libutan', 'N/A', 'Escuro', 'N/A', 0, 'Male', 'N/A', 'johndenielescuro@gmail.com', 9760466958, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', 'S0004'),
+(5, 'Marc Oliver Lood', 'N/A', 'Gasta', 'N/A', 0, 'Male', 'N/A', 'marcolivergastagonzales@gmail.com', 9488642607, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', 'S0005'),
+(6, 'Andrei Jireh Morales', 'N/A', 'Ilagan', 'N/A', 0, 'Male', 'N/A', 'ilaganandreijireh@gmail.com', 9087235282, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', 'S0006'),
+(7, 'Walter', 'N/A', 'Japitana', 'N/A', 0, 'Male', 'N/A', 'walter.japitana@gmail.com', 9458900525, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', 'S0007'),
+(8, 'Abdul Jabbar', 'N/A', 'Mira-ato', 'N/A', 0, 'Male', 'N/A', 'ajmiraato95@gmail.com', 9164490815, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', 'S0008'),
+(9, 'Melchor James', 'N/A', 'Malapad', 'N/A', 0, 'Male', 'N/A', 'melchorjamesmalapad22@gmail.com', 9760466958, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', 'S0009'),
+(10, 'Von Ryan Caminoy', 'N/A', 'Nogadas', 'N/A', 0, 'Male', 'N/A', 'vonnogadas251@gmail.com', 9690295523, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', 'S0010'),
+(11, 'Alona Jane Navarro', 'N/A', 'Pepito', 'N/A', 0, 'Female', 'N/A', 'pepitoalona231@gmail.com', 9392732727, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0011'),
+(12, 'Maui Jane Sabelita', 'N/A', 'Roche', 'N/A', 0, 'Female', 'N/A', 'rochemaui165@gmail.com', 9429362911, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0012'),
+(13, 'Angelica Guibao', 'N/A', 'Rosario', 'N/A', 0, 'Female', 'N/A', 'angelicalykarosario@gmail.com', 9691300512, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0013'),
+(14, 'Akisha Gelsey Lopena', 'N/A', 'Santos', 'N/A', 0, 'Female', 'N/A', 'akishagelsey00@gmail.com', 9267950299, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0014'),
+(15, 'Mikaella Antonette Villanueva', 'N/A', 'Tayoto', 'N/A', 0, 'Female', 'N/A', 'mikaellatayoto04@gmail.com', 9667422317, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0015'),
+(16, 'Dinnes Bilan', 'N/A', 'Aldave', 'N/A', 0, 'Male', 'N/A', 'dinnesaldav3@gmail.com', 9451589313, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0016'),
+(17, 'Alec Godwin Caaya', 'N/A', 'Almirañez', 'N/A', 0, 'Male', 'N/A', 'almiranezalec8@gmail.com', 9478171950, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0017'),
+(18, 'Lea Sace', 'N/A', 'Arca', 'N/A', 0, 'Female', 'N/A', 'arcalea8@gmail.com', 9091547277, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0018'),
+(19, 'Martin Alba', 'N/A', 'Avendaño', 'N/A', 0, 'Male', 'N/A', 'martinavendano205@gmail.com', 9393209000, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0019'),
+(20, 'Johnas Jr. Jimenez', 'N/A', 'Bautista', 'N/A', 0, 'Male', 'N/A', 'johnasbautistajr03@gmail.com', 9694526920, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0020'),
+(21, 'Tyron Panti', 'N/A', 'Bechayda', 'N/A', 0, 'Male', 'N/A', 'tyronbechayda1112@gmail.com', 9205662597, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0021'),
+(22, 'Marius Augustus Maik', 'N/A', 'Bernabe', 'N/A', 0, 'Male', 'N/A', 'bernabezeus16@gmail.com', 9222667247, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0022'),
+(23, 'Joshua Jerico Capalaran', 'N/A', 'Bilog', 'N/A', 0, 'Male', 'N/A', 'jbilog021@gmail.com', 9696102333, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0023'),
+(24, 'Kamilah Joie', 'N/A', 'Cabra', 'N/A', 0, 'Female', 'N/A', 'kjcabra@gmail.com', 9287525165, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0024'),
+(25, 'Noel Provido', 'N/A', 'Cairo', 'N/A', 0, 'Male', 'N/A', 'ncairojr@gmail.com', 9982900087, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0025'),
+(26, 'Rhea Mae Tangub', 'N/A', 'Rosalia', 'N/A', 0, 'Female', 'N/A', 'rheamaetangub@gmail.com', 9605878801, 'password', '2024-07-20 01:29:57', '2024-07-20 01:29:57', 'S0026'),
+(27, 'Vaneric Galang', 'N/A', 'San Pascual', 'N/A', 0, 'Female', 'N/A', 'vanericsanpascual@gmail.com', 9159532593, 'password', '2024-07-20 01:29:57', '2024-07-20 01:29:57', 'S0027'),
+(28, 'Ma. Ellyza Rufino', 'N/A', 'Teniero', 'N/A', 0, 'Female', 'N/A', 'ellyza.teniero@gmail.com', 9663882225, 'password', '2024-07-20 01:29:57', '2024-07-20 01:29:57', 'S0028'),
+(29, 'Aliza Balde', 'N/A', 'Tobongbanua', 'N/A', 0, 'Female', 'N/A', 'alizabalde@gmail.com', 9391549763, 'password', '2024-07-20 01:29:57', '2024-07-20 01:29:57', 'S0029'),
+(30, 'Danzig Lawrence Villamena', 'N/A', 'Uy', 'N/A', 0, 'Male', 'N/A', 'danzigvillamena@gmail.com', 9274576469, 'password', '2024-07-20 01:29:57', '2024-07-20 01:29:57', 'S0030'),
+(31, 'Jhay Dominique Parongao', 'N/A', 'Velasco', 'N/A', 0, 'Male', 'N/A', 'jhayvelasco@gmail.com', 9953544649, 'password', '2024-07-20 01:29:57', '2024-07-20 01:29:57', 'S0031'),
+(32, 'Joshua Florante', 'N/A', 'Vidal', 'N/A', 0, 'Male', 'N/A', 'joshua.vidal@gmail.com', 9617029780, 'password', '2024-07-20 01:29:57', '2024-07-20 01:29:57', 'S0032'),
+(33, 'Mary Rose Ann Lagare', 'N/A', 'Virtudazo', 'N/A', 0, 'Female', 'N/A', 'maryroseann@gmail.com', 9618006620, 'password', '2024-07-20 01:29:57', '2024-07-20 01:29:57', 'S0033');
 
 --
 -- Indexes for dumped tables
@@ -204,31 +305,31 @@ ALTER TABLE `student`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `professor`
 --
 ALTER TABLE `professor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

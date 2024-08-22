@@ -1,105 +1,97 @@
-<?php
-session_start();
-require '../db_connect.php';
-
-if (!isset($_SESSION['prof_id'])) {
-  header("Location: ../works/log_in_form.html");
-  exit;
-}
-
-$prof_id = $_SESSION['prof_id'];
-
-function getProfessorAndClassDetails($conn, $prof_id)
-{
-  $stmt = $conn->prepare("
-        SELECT p.prof_id, CONCAT(p.firstname, ' ', p.lastname) AS prof_name, c.class_no, co.course_code
-        FROM professor p
-        JOIN class c ON p.prof_id = c.prof_id
-        JOIN courses co ON c.courses_id = co.courses_id
-        WHERE p.prof_id = ?
-    ");
-  $stmt->bind_param("s", $prof_id);
-  $stmt->execute();
-  return $stmt->get_result()->fetch_assoc();
-}
-
-function getAttendanceRecords($conn, $class_no)
-{
-  $stmt = $conn->prepare("
-        SELECT a.date, a.status, COUNT(*) AS count
-        FROM attendance a
-        WHERE a.class_no = ?
-        GROUP BY a.date, a.status
-    ");
-  $stmt->bind_param("s", $class_no);
-  $stmt->execute();
-  return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-}
-
-$profData = getProfessorAndClassDetails($conn, $prof_id);
-
-if ($profData) {
-  $prof_name = $profData['prof_name'];
-  $class_no = $profData['class_no'];
-  $course_code = $profData['course_code'];
-
-  $attendanceRecords = getAttendanceRecords($conn, $class_no);
-} else {
-  $prof_name = 'Not found';
-  $class_no = 'Not found';
-  $course_code = 'Not found';
-  $attendanceRecords = [];
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Professor Dashboard</title>
+  <title>Attendify</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Public+Sans:wght@300;400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="../styles/professor_dashboard_styles.css">
-  <script src="../js/professor_dashboard.js" defer></script>
 </head>
 
 <body>
-  <header>
-    <div id="header">
-      <h1>Professor Dashboard</h1>
-      <div id="header_buttons">
-        <button class="header-btn" id="logout">Logout</button>
-        <button class="header-btn" id="statistics_button">View Statistics</button>
+  <div class="container">
+    <div class="sidebar">
+      <div class="profile">
+        <h2>ATTENDIFY</h2>
+        <div class="prof-icon">
+          <img src="../assets/images/professor-pic.png" alt="Professor Icon">
+        </div>
+        <div class="info">
+          <h2>Prof. Christine Jane Penez</h2>
+          <p>Username: P0001</p>
+        </div>
+      </div>
+      <div class="bottom-items">
+        <button class="back" onclick="goBack()">
+          <i class="fas fa-arrow-left"></i> BACK
+        </button>
+        <button class="logout">
+          <i class="fas fa-sign-out-alt"></i> LOG OUT
+        </button>
       </div>
     </div>
-  </header>
-  <section id="content">
-    <section id="professor_info">
-      <h2>Professor Information</h2>
-      <p><strong>Professor:</strong> <span id="prof_name"><?php echo htmlspecialchars($prof_name); ?></span></p>
-      <p><strong>Professor ID:</strong> <span id="prof_id"><?php echo htmlspecialchars($prof_id); ?></span></p>
-      <p><strong>Class Number:</strong> <span id="class_no"><?php echo htmlspecialchars($class_no); ?></span></p>
-      <p><strong>Course Code:</strong> <span id="course_name"><?php echo htmlspecialchars($course_code); ?></span></p>
-    </section>
-    <section id="attendance_management">
-      <h2>Attendance Management</h2>
-      <table id="attendance_table">
-        <thead>
+    <div class="main-content">
+      <div id="courses-page" class="page active">
+        <header>
+          <h1>COURSES</h1>
+        </header>
+
+        <div class="courses">
+          <div class="course" onclick="showClasses()">IT ELECTIVE 2</div>
+          <div class="course" onclick="showClasses()">IT ELECTIVE 2</div>
+          <div class="course" onclick="showClasses()">IT ELECTIVE 2</div>
+          <div class="course" onclick="showClasses()">IT ELECTIVE 2</div>
+          <div class="course" onclick="showClasses()">IT ELECTIVE 2</div>
+          <div class="course" onclick="showClasses()">IT ELECTIVE 2</div>
+        </div>
+      </div>
+
+      <div id="classes-page" class="page">
+        <header>
+          <h1>CLASSES</h1>
+        </header>
+        <button class="new-class">New Class</button>
+        <div class="classes">
+          <div class="class" onclick="showAttendance()">BSIT 3-1</div>
+          <div class="class" onclick="showAttendance()">DIT 3-1</div>
+          <div class="class" onclick="showAttendance()">BSIT 2-1</div>
+          <div class="class" onclick="showAttendance()">BSIT 1-1</div>
+        </div>
+      </div>
+
+      <div id="attendance-page" class="page">
+        <header>
+          <h1>BSIT 3-1</h1>
+        </header>
+        <table>
           <tr>
-            <th>First Name</th>
+            <th>Student Number</th>
             <th>Last Name</th>
-            <th>Date</th>
-            <th>Status</th>
-            <th>Action</th>
+            <th>First Name</th>
+            <th>Present</th>
+            <th>Absent</th>
+            <th>Excused</th>
           </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-      <button class="action-btn" id="edit_all_button">Edit All</button>
-      <button class="action-btn" id="save_all_button" disabled>Save All Changes</button>
-    </section>
-  </section>
+          <tr>
+            <td>2021-00116-TG-0</td>
+            <td>ARTUZ</td>
+            <td>CHRISTIAN</td>
+            <td><span class="present" onclick="markAttendance(this, 'present')"></span></td>
+            <td><span class="absent" onclick="markAttendance(this, 'absent')"></span></td>
+            <td><span class="excused" onclick="markAttendance(this, 'excused')"></span></td>
+          </tr>
+          <!-- Add more student rows as needed -->
+        </table>
+        <button class="upload">Upload Students</button>
+        <button class="save">Save</button>
+      </div>
+    </div>
+  </div>
+  <script src="../js/professor_dashboard.js"></script>
 </body>
 
 </html>
