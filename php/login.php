@@ -39,6 +39,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: ../works/student_dashboard.php");
         } elseif (strpos($special_key, "P") === 0) {
             $_SESSION['prof_id'] = $row['prof_id'];
+            $_SESSION['prof_name'] = $row['firstname'] . ' ' . $row['lastname'];
+            echo "Professor Name set in session: " . $_SESSION['prof_name']; 
             header("Location: ../works/professor_dashboard.php");
         } elseif (strpos($special_key, "A") === 0) {
             $_SESSION['admin_id'] = $row['admin_id'];

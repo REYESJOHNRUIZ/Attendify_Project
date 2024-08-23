@@ -1,3 +1,32 @@
+<?php
+session_start();
+require '../db_connect.php';
+
+if (!isset($_SESSION['prof_id'])) {
+    header("Location: ../works/log_in_form.html");
+    exit;
+}
+
+
+if (!isset($_SESSION['prof_name'])) {
+    die("Error: 'prof_name' is not set in session. Please check your login process.");
+}
+
+$prof_id = $_SESSION['prof_id'];
+
+
+$courses_stmt = $conn->prepare("
+    SELECT co.course_code, c.class_no
+    FROM courses co
+    JOIN class c ON co.courses_id = c.courses_id
+    WHERE c.prof_id = ?
+");
+$courses_stmt->bind_param("s", $prof_id);
+$courses_stmt->execute();
+$courses_result = $courses_stmt->get_result();
+$courses_data = $courses_result->fetch_all(MYSQLI_ASSOC);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,15 +50,15 @@
           <img src="../assets/images/professor-pic.png" alt="Professor Icon">
         </div>
         <div class="info">
-          <h2>Prof. Christine Jane Penez</h2>
-          <p>Username: P0001</p>
+          <h2><?php echo $_SESSION['prof_name']; ?></h2>
+          <p>Username: <?php echo $_SESSION['prof_id']; ?></p>
         </div>
       </div>
       <div class="bottom-items">
         <button class="back" onclick="goBack()">
           <i class="fas fa-arrow-left"></i> BACK
         </button>
-        <button class="logout">
+        <button class="logout" onclick="location.href='../php/logout.php'">
           <i class="fas fa-sign-out-alt"></i> LOG OUT
         </button>
       </div>
@@ -39,14 +68,12 @@
         <header>
           <h1>COURSES</h1>
         </header>
-
         <div class="courses">
-          <div class="course" onclick="showClasses()">IT ELECTIVE 2</div>
-          <div class="course" onclick="showClasses()">IT ELECTIVE 2</div>
-          <div class="course" onclick="showClasses()">IT ELECTIVE 2</div>
-          <div class="course" onclick="showClasses()">IT ELECTIVE 2</div>
-          <div class="course" onclick="showClasses()">IT ELECTIVE 2</div>
-          <div class="course" onclick="showClasses()">IT ELECTIVE 2</div>
+          <?php foreach ($courses_data as $course): ?>
+            <div class="course" onclick="showClasses('<?php echo $course['class_no']; ?>')">
+              <?php echo $course['course_code']; ?>
+            </div>
+          <?php endforeach; ?>
         </div>
       </div>
 
@@ -54,18 +81,14 @@
         <header>
           <h1>CLASSES</h1>
         </header>
-        <button class="new-class">New Class</button>
         <div class="classes">
-          <div class="class" onclick="showAttendance()">BSIT 3-1</div>
-          <div class="class" onclick="showAttendance()">DIT 3-1</div>
-          <div class="class" onclick="showAttendance()">BSIT 2-1</div>
-          <div class="class" onclick="showAttendance()">BSIT 1-1</div>
+          <!-- Classes will be dynamically loaded based on selected course -->
         </div>
       </div>
 
       <div id="attendance-page" class="page">
         <header>
-          <h1>BSIT 3-1</h1>
+          <h1>Attendance</h1>
         </header>
         <table>
           <tr>
@@ -76,15 +99,9 @@
             <th>Absent</th>
             <th>Excused</th>
           </tr>
-          <tr>
-            <td>2021-00116-TG-0</td>
-            <td>ARTUZ</td>
-            <td>CHRISTIAN</td>
-            <td><span class="present" onclick="markAttendance(this, 'present')"></span></td>
-            <td><span class="absent" onclick="markAttendance(this, 'absent')"></span></td>
-            <td><span class="excused" onclick="markAttendance(this, 'excused')"></span></td>
-          </tr>
-          <!-- Add more student rows as needed -->
+          <tbody id="attendance-tbody">
+            <!-- Attendance data will be dynamically loaded here -->
+          </tbody>
         </table>
         <button class="upload">Upload Students</button>
         <button class="save">Save</button>
