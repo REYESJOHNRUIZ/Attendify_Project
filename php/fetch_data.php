@@ -8,42 +8,60 @@ $type = $_GET['type'] ?? '';
 if ($type === 'chart') {
     switch ($category) {
         case 'Students':
-            // Fetch student count per class
-            $query = "SELECT class_name, COUNT(*) as student_count FROM student GROUP BY class_name";
+        case 'Professors':
+            $table = ($category === 'Students') ? 'student' : 'professor';
+            $query = "SELECT gender, COUNT(*) as count FROM $table GROUP BY gender";
             break;
 
-        case 'Professors':
-            // Fetch total number of professors
-            $query = "SELECT COUNT(*) as total FROM professor";
+        case 'Total Students':
+            $query = "SELECT COUNT(*) as total FROM student";
             break;
 
         default:
-            echo json_encode(['error' => 'Invalid category']);
+            echo json_encode([]);
             exit;
     }
 
     $result = $conn->query($query);
-    if (!$result) {
-        echo json_encode(['error' => $conn->error]);
-        exit;
-    }
-
     $data = [];
 
-    if ($category === 'Students') {
-        $data[] = ['Class Name', 'Student Count'];
-        while ($row = $result->fetch_assoc()) {
-            $data[] = [$row['class_name'], (int) $row['student_count']];
-        }
-    } elseif ($category === 'Professors') {
+    if ($category === 'Total Students') {
         $row = $result->fetch_assoc();
         $data[] = ['Category', 'Count'];
-        $data[] = ['Total Professors', (int) $row['total']];
+        $data[] = ['Total Students', (int) $row['total']];
+    } else {
+        $data[] = [$category === 'Students' ? 'Gender' : 'Gender', 'Count'];
+        while ($row = $result->fetch_assoc()) {
+            $data[] = [$row['gender'], (int) $row['count']];
+        }
     }
 
     echo json_encode($data);
 } elseif ($type === 'list') {
-    // Your existing list fetching code
+    $listType = $_GET['listType'] ?? 'professor';
+    $query = $listType === 'student'
+        ? 'SELECT lastname, firstname, email, phone, gender, age FROM student'
+        : 'SELECT lastname, firstname, email, phone, gender, age FROM professor';
+
+    $result = $conn->query($query);
+    $data = [];
+
+    if ($result->num_rows > 0) {
+        $index = 1;
+        while ($row = $result->fetch_assoc()) {
+            $data[] = [
+                'index' => $index++,
+                'lastname' => htmlspecialchars($row['lastname']),
+                'firstname' => htmlspecialchars($row['firstname']),
+                'email' => htmlspecialchars($row['email']),
+                'phone' => htmlspecialchars($row['phone']),
+                'gender' => htmlspecialchars($row['gender']),
+                'age' => htmlspecialchars($row['age'])
+            ];
+        }
+    }
+
+    echo json_encode($data);
 }
 
 $conn->close();

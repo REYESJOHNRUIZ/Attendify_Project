@@ -1,15 +1,3 @@
-<?php
-require '../db_connect.php';
-
-// Fetch Student Data
-$student_query = "SELECT id, lastname, firstname, email FROM student";
-$student_result = $conn->query($student_query);
-
-// Fetch Professor Data
-$professor_query = "SELECT id, lastname, firstname, status, email FROM professor";
-$professor_result = $conn->query($professor_query);
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -65,7 +53,7 @@ $professor_result = $conn->query($professor_query);
       </section>
 
       <!-- Student Info Section -->
-      <section id="student-info" class="content-section active">
+      <section id="student-info" class="content-section">
         <h2>Student List</h2>
         <table>
           <thead>
@@ -77,20 +65,18 @@ $professor_result = $conn->query($professor_query);
             </tr>
           </thead>
           <tbody>
-            <?php
-            if ($student_result->num_rows > 0) {
-              while ($row = $student_result->fetch_assoc()) {
-                echo "<tr>
-                        <td>{$row['id']}</td>
-                        <td>{$row['lastname']}</td>
-                        <td>{$row['firstname']}</td>
-                        <td>{$row['email']}</td>
-                      </tr>";
-              }
-            } else {
-              echo "<tr><td colspan='4'>No students found</td></tr>";
-            }
-            ?>
+            <tr>
+              <td>1</td>
+              <td>Doe</td>
+              <td>Jane</td>
+              <td>jane.doe@gmail.com</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Smith</td>
+              <td>John</td>
+              <td>john.smith@gmail.com</td>
+            </tr>
           </tbody>
         </table>
       </section>
@@ -109,21 +95,20 @@ $professor_result = $conn->query($professor_query);
             </tr>
           </thead>
           <tbody>
-            <?php
-            if ($professor_result->num_rows > 0) {
-              while ($row = $professor_result->fetch_assoc()) {
-                echo "<tr>
-                        <td>{$row['id']}</td>
-                        <td>{$row['lastname']}</td>
-                        <td>{$row['firstname']}</td>
-                        <td>{$row['status']}</td>
-                        <td>{$row['email']}</td>
-                      </tr>";
-              }
-            } else {
-              echo "<tr><td colspan='5'>No professors found</td></tr>";
-            }
-            ?>
+            <tr>
+              <td>1</td>
+              <td>Aguas</td>
+              <td>Sophia</td>
+              <td>Part-Time</td>
+              <td>sophiaagu@gmail.com</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Manalo</td>
+              <td>Christopher</td>
+              <td>Regular</td>
+              <td>christomanalo@gmail.com</td>
+            </tr>
           </tbody>
         </table>
       </section>

@@ -28,6 +28,7 @@ $dates_json = json_encode($dates);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -38,6 +39,7 @@ $dates_json = json_encode($dates);
         const attendanceDates = <?php echo $dates_json; ?>;
     </script>
 </head>
+
 <body>
     <div class="sidebar">
         <h1>ATTENDIFY</h1>
@@ -106,7 +108,23 @@ $dates_json = json_encode($dates);
             };
 
             const attendanceChart = new Chart(ctx, config);
+
+            // Logout button functionality
+            const logoutButton = document.getElementById("logout_button");
+            if (logoutButton) {
+                logoutButton.addEventListener("click", function () {
+                    fetch('logout.php')
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                window.location.href = "../index.html"; // Redirect to index.html
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                });
+            }
         });
     </script>
 </body>
+
 </html>
