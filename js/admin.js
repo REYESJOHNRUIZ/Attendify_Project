@@ -1,4 +1,4 @@
-function showSection(sectionId) {
+unction showSection(sectionId) {
   // Remove 'active' class from all sections
   document.querySelectorAll(".content-section").forEach(function (section) {
     section.classList.remove("active");
