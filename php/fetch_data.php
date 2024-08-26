@@ -8,13 +8,13 @@ $type = $_GET['type'] ?? '';
 if ($type === 'chart') {
     switch ($category) {
         case 'Students':
-        case 'Professors':
-            $table = ($category === 'Students') ? 'student' : 'professor';
-            $query = "SELECT gender, COUNT(*) as count FROM $table GROUP BY gender";
+            // Fetch student count per class
+            $query = "SELECT class_name, COUNT(*) as student_count FROM student GROUP BY class_name";
             break;
 
-        case 'Total Students':
-            $query = "SELECT COUNT(*) as total FROM student";
+        case 'Professors':
+            // Fetch total number of professors
+            $query = "SELECT COUNT(*) as total FROM professor";
             break;
 
         default:
@@ -25,43 +25,20 @@ if ($type === 'chart') {
     $result = $conn->query($query);
     $data = [];
 
-    if ($category === 'Total Students') {
+    if ($category === 'Students') {
+        $data[] = ['Class Name', 'Student Count'];
+        while ($row = $result->fetch_assoc()) {
+            $data[] = [$row['class_name'], (int) $row['student_count']];
+        }
+    } elseif ($category === 'Professors') {
         $row = $result->fetch_assoc();
         $data[] = ['Category', 'Count'];
-        $data[] = ['Total Students', (int) $row['total']];
-    } else {
-        $data[] = [$category === 'Students' ? 'Gender' : 'Gender', 'Count'];
-        while ($row = $result->fetch_assoc()) {
-            $data[] = [$row['gender'], (int) $row['count']];
-        }
+        $data[] = ['Total Professors', (int) $row['total']];
     }
 
     echo json_encode($data);
 } elseif ($type === 'list') {
-    $listType = $_GET['listType'] ?? 'professor';
-    $query = $listType === 'student'
-        ? 'SELECT lastname, firstname, email, phone, gender, age FROM student'
-        : 'SELECT lastname, firstname, email, phone, gender, age FROM professor';
-
-    $result = $conn->query($query);
-    $data = [];
-
-    if ($result->num_rows > 0) {
-        $index = 1;
-        while ($row = $result->fetch_assoc()) {
-            $data[] = [
-                'index' => $index++,
-                'lastname' => htmlspecialchars($row['lastname']),
-                'firstname' => htmlspecialchars($row['firstname']),
-                'email' => htmlspecialchars($row['email']),
-                'phone' => htmlspecialchars($row['phone']),
-                'gender' => htmlspecialchars($row['gender']),
-                'age' => htmlspecialchars($row['age'])
-            ];
-        }
-    }
-
-    echo json_encode($data);
+    // Your existing list fetching code
 }
 
 $conn->close();
