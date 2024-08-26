@@ -20,12 +20,12 @@ body {
 .login-box {
   background-color: #1D1A37;
   border-radius: 30px;
-  padding: 40px 100px;
+  padding: 110px 100px;
   text-align: center;
   box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.1);
   position: relative;
   margin: 0 auto;
-  max-width: 400px;
+  max-width: 550px;
   width: 100%;
 }
 
