@@ -42,6 +42,13 @@ $professor_result = $conn->query($professor_query);
           <span>Professor List</span>
         </li>
       </ul>
+
+      <div class="create-professor">
+        <a href="../works/create_account.html">
+          <button id="create-prof">Create Professor Account</button>
+        </a>
+      </div>
+
       <div class="logout">
         <button id="logoutBtn">LOG OUT</button>
       </div>
