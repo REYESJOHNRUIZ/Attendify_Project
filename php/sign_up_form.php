@@ -1,42 +1,49 @@
 <?php
-include 'db_connect.php';
+include '../db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $firstname = $_POST['firstname'];
-  $middlename = $_POST['middlename'];
-  $lastname = $_POST['lastname'];
+  // Sanitize input
+  $firstname = trim($_POST['firstname']);
+  $middlename = trim($_POST['middlename']);
+  $lastname = trim($_POST['lastname']);
   $birthday = $_POST['birthday'];
-  $age = $_POST['age'];
-  $gender = $_POST['gender'];
-  $address = $_POST['address'];
-  $email = $_POST['email'];
-  $phone = $_POST['phone'];
-  $course = $_POST['courses'];
-  $status = $_POST['status'];
+  $student_number = trim($_POST['student_number']);
+  $email = trim($_POST['email']);
   $password = $_POST['password'];
-  $confirmPassword = $_POST['confirmPassword'];
+  $confirmPassword = $_POST['confirm_password'];
 
+  // Check if passwords match
   if ($password !== $confirmPassword) {
     echo "Passwords do not match.";
     exit;
   }
 
+  // Check if email already exists
+  $stmt = $conn->prepare("SELECT email FROM student WHERE email = ?");
+  $stmt->bind_param("s", $email);
+  $stmt->execute();
+  $stmt->store_result();
+
+  if ($stmt->num_rows > 0) {
+    echo "Email already exists.";
+    exit;
+  }
+
+  // Hash the password
   $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-  $result = $conn->query("SELECT MAX(id) AS max_id FROM professor");
-  $row = $result->fetch_assoc();
-  $maxId = $row['max_id'] + 1;
-  $profId = sprintf("P%05d", $maxId);
+  // Insert student into the database
+  $stmt = $conn->prepare("INSERT INTO student (firstname, middlename, lastname, birthday, email, password, student_number) VALUES (?, ?, ?, ?, ?, ?, ?)");
+  $stmt->bind_param("sssssss", $firstname, $middlename, $lastname, $birthday, $email, $passwordHash, $student_number);
 
-  $stmt = $conn->prepare("INSERT INTO professor (firstname, middlename, lastname, birthday, age, gender, address, email, phone, course, status, password, prof_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-  $stmt->bind_param("ssssissssssss", $firstname, $middlename, $lastname, $birthday, $age, $gender, $address, $email, $phone, $course, $status, $passwordHash, $profId);
-
+  // Execute the query and check for success
   if ($stmt->execute()) {
-    echo "Sign up successfully";
+    echo "Sign up successful";
   } else {
     echo "Error: " . $stmt->error;
   }
 
+  // Close connections
   $stmt->close();
   $conn->close();
 }

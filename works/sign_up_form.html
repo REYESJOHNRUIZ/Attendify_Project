@@ -22,14 +22,14 @@
           <div class="logo-text">ATTENDIFY</div>
         </div>
         <h2>CREATE STUDENT ACCOUNT</h2>
-        <form>
+        <form method="POST" action="../php/sign_up_form.php">
           <div class="form-row">
             <div class="input-group">
               <label for="first-name">First Name</label>
               <input
                 type="text"
                 id="first-name"
-                name="first-name"
+                name="firstname"
                 placeholder="First Name"
               />
             </div>
@@ -38,7 +38,7 @@
               <input
                 type="text"
                 id="middle-name"
-                name="middle-name"
+                name="middlename"
                 placeholder="Middle Name"
               />
             </div>
@@ -47,7 +47,7 @@
               <input
                 type="text"
                 id="last-name"
-                name="last-name"
+                name="lastname"
                 placeholder="Last Name"
               />
             </div>
@@ -55,14 +55,14 @@
           <div class="form-row">
             <div class="input-group">
               <label for="birthdate">Birthdate</label>
-              <input type="date" id="birthdate" name="birthdate" />
+              <input type="date" id="birthdate" name="birthday" />
             </div>
             <div class="input-group">
               <label for="student-number">Student Number</label>
               <input
                 type="text"
                 id="student-number"
-                name="student-number"
+                name="student_number"
                 placeholder="Student Number"
               />
             </div>
@@ -90,7 +90,8 @@
                 />
                 <span
                   class="show-password"
-                  onclick="togglePasswordVisibility('password')"
+                  id="toggle-password"
+                  data-toggle="password"
                 >
                   <i class="fas fa-eye" id="eye-icon-password"></i>
                 </span>
@@ -102,12 +103,13 @@
                 <input
                   type="password"
                   id="confirm-password"
-                  name="confirm-password"
+                  name="confirm_password"
                   placeholder="Confirm Password"
                 />
                 <span
                   class="show-password"
-                  onclick="togglePasswordVisibility('confirm-password')"
+                  id="toggle-confirm-password"
+                  data-toggle="confirm-password"
                 >
                   <i class="fas fa-eye" id="eye-icon-confirm-password"></i>
                 </span>
