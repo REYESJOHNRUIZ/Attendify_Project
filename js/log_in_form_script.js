@@ -26,13 +26,13 @@ loginForm.addEventListener("submit", function (event) {
   // Set the correct action URL for the form based on the special key
   let actionUrl;
   if (
-    specialKey.startsWith("S") ||
+    specialKey.startsWith("20") ||
     specialKey.startsWith("P") ||
     specialKey.startsWith("A")
   ) {
     actionUrl = "../php/login.php"; // Use the correct login script
   } else {
-    alert("Invalid Special Key.");
+    alert("Invalid Username.");
     return;
   }
 

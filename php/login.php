@@ -4,7 +4,7 @@ session_start();
 require '../db_connect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $special_key = $_POST['student_number'];
+    $special_key = trim($_POST['student_number']);
     $password = $_POST['password'];
 
     if (empty($special_key) || empty($password)) {
@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    if (strpos($special_key, "S") === 0) {
+    if (strpos($special_key, "20") === 0) {
         $stmt = $conn->prepare("SELECT * FROM student WHERE student_number = ? AND password = ?");
     } elseif (strpos($special_key, "P") === 0) {
         $stmt = $conn->prepare("SELECT * FROM professor WHERE prof_id = ? AND password = ?");
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result->num_rows === 1) {
         $row = $result->fetch_assoc();
-        if (strpos($special_key, "S") === 0) {
+        if (strpos($special_key, "20") === 0) {
             $_SESSION['student_name'] = $row['firstname'] . ' ' . $row['lastname'];
             $_SESSION['gender'] = $row['gender'];
             $_SESSION['email'] = $row['email'];
