@@ -11,9 +11,6 @@ $status = $_POST['status'];
 $course = $_POST['course'];
 $password = $_POST['password'];
 
-// Debug line to check password (remove after testing)
-// echo "Password: " . $password;
-
 // Generate prof_id
 $sql = "SELECT MAX(id) as max_id FROM professor";
 $result = $conn->query($sql);
@@ -31,7 +28,7 @@ $stmt->bind_param("sssssssss", $firstname, $middlename, $lastname, $birthday, $e
 if ($stmt->execute()) {
     echo "<script>
             alert('Sign up successfully. Click OK to go back to admin.');
-            window.location.href = '../works/administator_dashboard.php';
+            window.location.href = '../works/administrator_dashboard.php'; // Replace with your admin page URL
           </script>";
 } else {
     echo "Error: " . $stmt->error;
