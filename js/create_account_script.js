@@ -15,13 +15,15 @@ function togglePasswordVisibility(id) {
 }
 
 function validateForm(event) {
-  event.preventDefault();
+  event.preventDefault(); // Prevent form from submitting immediately
   const form = document.querySelector("form");
   const inputs = form.querySelectorAll("input, select");
   let isValid = true;
 
+  // Clear previous validation messages
   form.querySelectorAll(".validation-message").forEach((msg) => msg.remove());
 
+  // Validate all inputs to ensure they are not empty
   inputs.forEach((input) => {
     if (input.value.trim() === "") {
       isValid = false;
@@ -32,6 +34,7 @@ function validateForm(event) {
     }
   });
 
+  // Check if passwords match
   const password = document.getElementById("password");
   const confirmPassword = document.getElementById("confirm_password");
   if (password.value !== confirmPassword.value) {
@@ -42,11 +45,13 @@ function validateForm(event) {
     confirmPassword.parentNode.appendChild(message);
   }
 
+  // If everything is valid, submit the form
   if (isValid) {
-    alert("Form is valid! Submitting...");
+    form.submit(); // Submit the form if all validations pass
   }
 }
 
+// Attach the validation function to the sign-up button
 document
   .querySelector(".sign-in-button")
   .addEventListener("click", validateForm);

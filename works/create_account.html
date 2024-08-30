@@ -22,7 +22,7 @@
           <div class="logo-text">ATTENDIFY</div>
         </div>
         <h2>CREATE PROFESSOR ACCOUNT</h2>
-        <form>
+        <form method="POST" action="../php/create_account.php">
           <div class="form-row">
             <div class="input-group">
               <label for="first_name">First Name</label>
@@ -78,8 +78,9 @@
             <div class="input-group">
               <label for="course">Select Course</label>
               <select id="course" name="course">
-                <option value="web-development">Web Development</option>
-                <option value="data-science">Data Science</option>
+                <option value="webdev">Web Development</option>
+                <option value="oop">Object Oriented Programming</option>
+                <option value="comprog1">Computer Programming 1</option>
               </select>
             </div>
           </div>
