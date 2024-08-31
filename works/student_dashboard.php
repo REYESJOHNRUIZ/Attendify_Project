@@ -8,12 +8,32 @@ if (!isset($_SESSION['student_number'])) {
 require '../db_connect.php';
 
 $student_number = $_SESSION['student_number'];
+
+// Fetch student data
 $stmt = $conn->prepare("SELECT * FROM student WHERE student_number = ?");
 $stmt->bind_param("s", $student_number);
 $stmt->execute();
 $result = $stmt->get_result();
 $student = $result->fetch_assoc();
 
+// Fetch section information (class_no)
+$stmt = $conn->prepare("
+    SELECT class.class_no 
+    FROM class 
+    WHERE class.student_no = ?");
+$stmt->bind_param("s", $student_number);
+$stmt->execute();
+$section_result = $stmt->get_result();
+$section = $section_result->fetch_assoc();
+
+// Check if section data exists and store it in session
+if ($section) {
+    $_SESSION['section'] = $section['class_no'];
+} else {
+    $_SESSION['section'] = 'N/A'; // Default value if section is not found
+}
+
+// Fetch attendance dates
 $stmt = $conn->prepare("SELECT DISTINCT date FROM attendance WHERE student_no = ?");
 $stmt->bind_param("s", $student_number);
 $stmt->execute();
