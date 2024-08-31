@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 16, 2024 at 01:22 PM
+-- Generation Time: Aug 31, 2024 at 05:53 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -41,7 +41,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `username`, `password`, `admin_id`, `datetime_created`, `datetime_updated`) VALUES
-(1, 'admin1', 'password123', 'ADMIN-001', '2024-07-19 15:01:15', '2024-07-19 15:01:15'),
+(1, 'admin1', '$2y$10$.l0Iu0SubKMIaoEbAthpseoZAWMxozbLF35orfeTb1AhA2K2ZvJjm', 'ADMIN-001', '2024-07-19 15:01:15', '2024-08-31 03:48:07'),
 (2, 'admin2', 'password456', 'ADMIN-002', '2024-07-19 15:01:15', '2024-07-19 15:01:15');
 
 -- --------------------------------------------------------
@@ -187,7 +187,7 @@ CREATE TABLE `professor` (
   `phone` bigint(20) NOT NULL,
   `course` varchar(100) NOT NULL,
   `status` varchar(100) NOT NULL,
-  `password` int(11) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `prof_id` varchar(100) NOT NULL,
   `datetime_created` timestamp NOT NULL DEFAULT current_timestamp(),
   `datetime_updated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -198,8 +198,12 @@ CREATE TABLE `professor` (
 --
 
 INSERT INTO `professor` (`id`, `firstname`, `middlename`, `lastname`, `birthday`, `age`, `gender`, `address`, `email`, `phone`, `course`, `status`, `password`, `prof_id`, `datetime_created`, `datetime_updated`) VALUES
-(1, 'Steven', 'N/A', 'Villarosa', 'N/A', 0, '29', 'N/A', 'stevenvillarosa@gmail.com', 0, 'WebDev', 'Full Time', 1234567890, 'P0001', '2024-07-20 01:34:01', '2024-07-21 11:36:05'),
-(2, 'Francis', 'N/A', 'Franco', 'N/A', 0, '30', 'N/A', 'francisfranco@gmail.com', 0, 'OOP', 'Part time', 1234567890, 'P0002', '2024-07-20 01:34:01', '2024-07-21 11:35:47');
+(1, 'Steven', 'N/A', 'Villarosa', 'N/A', 0, '29', 'N/A', 'stevenvillarosa@gmail.com', 0, 'WebDev', 'Full Time', '$2y$10$dzP8.OVPBxaCAJ.UyKC9kevuadjHyaibSu4DT7fj3/UrmsvWw2svm', 'P0001', '2024-07-20 01:34:01', '2024-08-31 03:52:53'),
+(2, 'Francis', 'N/A', 'Franco', 'N/A', 0, '30', 'N/A', 'francisfranco@gmail.com', 0, 'OOP', 'Part time', '1234567890', 'P0002', '2024-07-20 01:34:01', '2024-07-21 11:35:47'),
+(3, 'John', 'ru', 'reyes', '1990-07-19', 0, '', '', 'zling@choso.tech', 0, 'webdev', 'full-time', '$2y$10$6RaquVvhdAjtsAA8D4VNGuXpGp1m6tFoI/a7/QaL1MCi.y1KZ3Kne', 'P00003', '2024-08-30 16:46:05', '2024-08-30 16:46:05'),
+(4, 'John', 'ru', 'reyes', '1999-02-17', 0, '', '', 'sadsad@gmail.com', 0, 'oop', 'part-time', '$2y$10$JcErujC.dOXtH3CM6dXAp.smy5ob21J/rp60M8K9JZVlxGKF/FPKe', 'P00004', '2024-08-30 16:50:40', '2024-08-30 16:50:40'),
+(5, 'asdasd', 'asda', 'dsadas', '2009-07-24', 0, '', '', 'asdas@gmail.com', 0, 'webdev', 'full-time', '$2y$10$YfpegV4PVgqnV57WgaKQ.evFDMXkPbzFa1DTYnMeJJkWIBxwwRWtW', 'P00005', '2024-08-30 17:04:19', '2024-08-30 17:04:19'),
+(6, 'dddd', 'aaa', 'ss', '2004-11-18', 0, '', '', 'ddsd@gmail.com', 0, 'webdev', 'full-time', '$2y$10$/CjhyahC3uIee9kaCG/hMex48jmN8lUi.9MVKzw.WSdHoG8QkYHTK', 'P00006', '2024-08-30 17:23:26', '2024-08-30 17:23:26');
 
 -- --------------------------------------------------------
 
@@ -229,39 +233,41 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`id`, `firstname`, `middlename`, `lastname`, `birthday`, `age`, `gender`, `address`, `email`, `phone`, `password`, `datetime_created`, `datetime_updated`, `student_number`) VALUES
-(1, 'Jheferson Zambra', 'N/A', 'Añonuevo', 'N/A', 0, 'Male', 'N/A', 'jhefersonzanonuevo@gmail.com', 9499594451, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', 'S0001'),
-(2, 'Mark Louie Calzado', 'N/A', 'Cahigan', 'N/A', 0, 'Male', 'N/A', 'markcahigan54@gmail.com', 9204535357, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', 'S0002'),
-(3, 'Elidia', 'N/A', 'Dacuag', 'N/A', 0, 'Female', 'N/A', 'elidia.dacuag@gmail.com', 9207305342, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', 'S0003'),
-(4, 'John Deniel Libutan', 'N/A', 'Escuro', 'N/A', 0, 'Male', 'N/A', 'johndenielescuro@gmail.com', 9760466958, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', 'S0004'),
-(5, 'Marc Oliver Lood', 'N/A', 'Gasta', 'N/A', 0, 'Male', 'N/A', 'marcolivergastagonzales@gmail.com', 9488642607, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', 'S0005'),
-(6, 'Andrei Jireh Morales', 'N/A', 'Ilagan', 'N/A', 0, 'Male', 'N/A', 'ilaganandreijireh@gmail.com', 9087235282, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', 'S0006'),
-(7, 'Walter', 'N/A', 'Japitana', 'N/A', 0, 'Male', 'N/A', 'walter.japitana@gmail.com', 9458900525, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', 'S0007'),
-(8, 'Abdul Jabbar', 'N/A', 'Mira-ato', 'N/A', 0, 'Male', 'N/A', 'ajmiraato95@gmail.com', 9164490815, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', 'S0008'),
-(9, 'Melchor James', 'N/A', 'Malapad', 'N/A', 0, 'Male', 'N/A', 'melchorjamesmalapad22@gmail.com', 9760466958, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', 'S0009'),
-(10, 'Von Ryan Caminoy', 'N/A', 'Nogadas', 'N/A', 0, 'Male', 'N/A', 'vonnogadas251@gmail.com', 9690295523, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', 'S0010'),
-(11, 'Alona Jane Navarro', 'N/A', 'Pepito', 'N/A', 0, 'Female', 'N/A', 'pepitoalona231@gmail.com', 9392732727, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0011'),
-(12, 'Maui Jane Sabelita', 'N/A', 'Roche', 'N/A', 0, 'Female', 'N/A', 'rochemaui165@gmail.com', 9429362911, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0012'),
-(13, 'Angelica Guibao', 'N/A', 'Rosario', 'N/A', 0, 'Female', 'N/A', 'angelicalykarosario@gmail.com', 9691300512, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0013'),
-(14, 'Akisha Gelsey Lopena', 'N/A', 'Santos', 'N/A', 0, 'Female', 'N/A', 'akishagelsey00@gmail.com', 9267950299, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0014'),
-(15, 'Mikaella Antonette Villanueva', 'N/A', 'Tayoto', 'N/A', 0, 'Female', 'N/A', 'mikaellatayoto04@gmail.com', 9667422317, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0015'),
-(16, 'Dinnes Bilan', 'N/A', 'Aldave', 'N/A', 0, 'Male', 'N/A', 'dinnesaldav3@gmail.com', 9451589313, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0016'),
-(17, 'Alec Godwin Caaya', 'N/A', 'Almirañez', 'N/A', 0, 'Male', 'N/A', 'almiranezalec8@gmail.com', 9478171950, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0017'),
-(18, 'Lea Sace', 'N/A', 'Arca', 'N/A', 0, 'Female', 'N/A', 'arcalea8@gmail.com', 9091547277, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0018'),
-(19, 'Martin Alba', 'N/A', 'Avendaño', 'N/A', 0, 'Male', 'N/A', 'martinavendano205@gmail.com', 9393209000, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0019'),
-(20, 'Johnas Jr. Jimenez', 'N/A', 'Bautista', 'N/A', 0, 'Male', 'N/A', 'johnasbautistajr03@gmail.com', 9694526920, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0020'),
-(21, 'Tyron Panti', 'N/A', 'Bechayda', 'N/A', 0, 'Male', 'N/A', 'tyronbechayda1112@gmail.com', 9205662597, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0021'),
-(22, 'Marius Augustus Maik', 'N/A', 'Bernabe', 'N/A', 0, 'Male', 'N/A', 'bernabezeus16@gmail.com', 9222667247, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0022'),
-(23, 'Joshua Jerico Capalaran', 'N/A', 'Bilog', 'N/A', 0, 'Male', 'N/A', 'jbilog021@gmail.com', 9696102333, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0023'),
-(24, 'Kamilah Joie', 'N/A', 'Cabra', 'N/A', 0, 'Female', 'N/A', 'kjcabra@gmail.com', 9287525165, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0024'),
-(25, 'Noel Provido', 'N/A', 'Cairo', 'N/A', 0, 'Male', 'N/A', 'ncairojr@gmail.com', 9982900087, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', 'S0025'),
-(26, 'Rhea Mae Tangub', 'N/A', 'Rosalia', 'N/A', 0, 'Female', 'N/A', 'rheamaetangub@gmail.com', 9605878801, 'password', '2024-07-20 01:29:57', '2024-07-20 01:29:57', 'S0026'),
-(27, 'Vaneric Galang', 'N/A', 'San Pascual', 'N/A', 0, 'Female', 'N/A', 'vanericsanpascual@gmail.com', 9159532593, 'password', '2024-07-20 01:29:57', '2024-07-20 01:29:57', 'S0027'),
-(28, 'Ma. Ellyza Rufino', 'N/A', 'Teniero', 'N/A', 0, 'Female', 'N/A', 'ellyza.teniero@gmail.com', 9663882225, 'password', '2024-07-20 01:29:57', '2024-07-20 01:29:57', 'S0028'),
-(29, 'Aliza Balde', 'N/A', 'Tobongbanua', 'N/A', 0, 'Female', 'N/A', 'alizabalde@gmail.com', 9391549763, 'password', '2024-07-20 01:29:57', '2024-07-20 01:29:57', 'S0029'),
-(30, 'Danzig Lawrence Villamena', 'N/A', 'Uy', 'N/A', 0, 'Male', 'N/A', 'danzigvillamena@gmail.com', 9274576469, 'password', '2024-07-20 01:29:57', '2024-07-20 01:29:57', 'S0030'),
-(31, 'Jhay Dominique Parongao', 'N/A', 'Velasco', 'N/A', 0, 'Male', 'N/A', 'jhayvelasco@gmail.com', 9953544649, 'password', '2024-07-20 01:29:57', '2024-07-20 01:29:57', 'S0031'),
-(32, 'Joshua Florante', 'N/A', 'Vidal', 'N/A', 0, 'Male', 'N/A', 'joshua.vidal@gmail.com', 9617029780, 'password', '2024-07-20 01:29:57', '2024-07-20 01:29:57', 'S0032'),
-(33, 'Mary Rose Ann Lagare', 'N/A', 'Virtudazo', 'N/A', 0, 'Female', 'N/A', 'maryroseann@gmail.com', 9618006620, 'password', '2024-07-20 01:29:57', '2024-07-20 01:29:57', 'S0033');
+(1, 'Jheferson Zambra', 'N/A', 'Añonuevo', 'N/A', 0, 'Male', 'N/A', 'jhefersonzanonuevo@gmail.com', 9499594451, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', '2022-001-TG-0'),
+(2, 'Mark Louie Calzado', 'N/A', 'Cahigan', 'N/A', 0, 'Male', 'N/A', 'markcahigan54@gmail.com', 9204535357, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', '2022-002-TG-0'),
+(3, 'Elidia', 'N/A', 'Dacuag', 'N/A', 0, 'Female', 'N/A', 'elidia.dacuag@gmail.com', 9207305342, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', '2022-003-TG-0'),
+(4, 'John Deniel Libutan', 'N/A', 'Escuro', 'N/A', 0, 'Male', 'N/A', 'johndenielescuro@gmail.com', 9760466958, '$2y$10$co8tTdfW.JYyBTkKLeFsRuKjUvSk2GHs0gemf2c65s1VLKIJ4NRky', '2024-07-20 01:29:14', '2024-07-20 01:29:14', '2022-004-TG-0'),
+(5, 'Marc Oliver Lood', 'N/A', 'Gasta', 'N/A', 0, 'Male', 'N/A', 'marcolivergastagonzales@gmail.com', 9488642607, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', '2022-005-TG-0'),
+(6, 'Andrei Jireh Morales', 'N/A', 'Ilagan', 'N/A', 0, 'Male', 'N/A', 'ilaganandreijireh@gmail.com', 9087235282, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', '2022-006-TG-0'),
+(7, 'Walter', 'N/A', 'Japitana', 'N/A', 0, 'Male', 'N/A', 'walter.japitana@gmail.com', 9458900525, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', '2022-007-TG-0'),
+(8, 'Abdul Jabbar', 'N/A', 'Mira-ato', 'N/A', 0, 'Male', 'N/A', 'ajmiraato95@gmail.com', 9164490815, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', '2022-008-TG-0'),
+(9, 'Melchor James', 'N/A', 'Malapad', 'N/A', 0, 'Male', 'N/A', 'melchorjamesmalapad22@gmail.com', 9760466958, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', '2022-009-TG-0'),
+(10, 'Von Ryan Caminoy', 'N/A', 'Nogadas', 'N/A', 0, 'Male', 'N/A', 'vonnogadas251@gmail.com', 9690295523, 'password', '2024-07-20 01:29:14', '2024-07-20 01:29:14', '2022-010-TG-0'),
+(11, 'Alona Jane Navarro', 'N/A', 'Pepito', 'N/A', 0, 'Female', 'N/A', 'pepitoalona231@gmail.com', 9392732727, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', '2022-011-TG-0'),
+(12, 'Maui Jane Sabelita', 'N/A', 'Roche', 'N/A', 0, 'Female', 'N/A', 'rochemaui165@gmail.com', 9429362911, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', '2022-012-TG-0'),
+(13, 'Angelica Guibao', 'N/A', 'Rosario', 'N/A', 0, 'Female', 'N/A', 'angelicalykarosario@gmail.com', 9691300512, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', '2022-013-TG-0'),
+(14, 'Akisha Gelsey Lopena', 'N/A', 'Santos', 'N/A', 0, 'Female', 'N/A', 'akishagelsey00@gmail.com', 9267950299, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', '2022-014-TG-0'),
+(15, 'Mikaella Antonette Villanueva', 'N/A', 'Tayoto', 'N/A', 0, 'Female', 'N/A', 'mikaellatayoto04@gmail.com', 9667422317, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', '2022-015-TG-0'),
+(16, 'Dinnes Bilan', 'N/A', 'Aldave', 'N/A', 0, 'Male', 'N/A', 'dinnesaldav3@gmail.com', 9451589313, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', '2022-016-TG-0'),
+(17, 'Alec Godwin Caaya', 'N/A', 'Almirañez', 'N/A', 0, 'Male', 'N/A', 'almiranezalec8@gmail.com', 9478171950, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', '2022-017-TG-0'),
+(18, 'Lea Sace', 'N/A', 'Arca', 'N/A', 0, 'Female', 'N/A', 'arcalea8@gmail.com', 9091547277, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', '2022-018-TG-0'),
+(19, 'Martin Alba', 'N/A', 'Avendaño', 'N/A', 0, 'Male', 'N/A', 'martinavendano205@gmail.com', 9393209000, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', '2022-019-TG-0'),
+(20, 'Johnas Jr. Jimenez', 'N/A', 'Bautista', 'N/A', 0, 'Male', 'N/A', 'johnasbautistajr03@gmail.com', 9694526920, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', '2022-020-TG-0'),
+(21, 'Tyron Panti', 'N/A', 'Bechayda', 'N/A', 0, 'Male', 'N/A', 'tyronbechayda1112@gmail.com', 9205662597, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', '2022-021-TG-0'),
+(22, 'Marius Augustus Maik', 'N/A', 'Bernabe', 'N/A', 0, 'Male', 'N/A', 'bernabezeus16@gmail.com', 9222667247, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', '2022-022-TG-0'),
+(23, 'Joshua Jerico Capalaran', 'N/A', 'Bilog', 'N/A', 0, 'Male', 'N/A', 'jbilog021@gmail.com', 9696102333, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', '2022-023-TG-0'),
+(24, 'Kamilah Joie', 'N/A', 'Cabra', 'N/A', 0, 'Female', 'N/A', 'kjcabra@gmail.com', 9287525165, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', '2022-024-TG-0'),
+(25, 'Noel Provido', 'N/A', 'Cairo', 'N/A', 0, 'Male', 'N/A', 'ncairojr@gmail.com', 9982900087, 'password', '2024-07-20 01:29:29', '2024-07-20 01:29:29', '2022-025-TG-0'),
+(26, 'Rhea Mae Tangub', 'N/A', 'Rosalia', 'N/A', 0, 'Female', 'N/A', 'rheamaetangub@gmail.com', 9605878801, 'password', '2024-07-20 01:29:57', '2024-07-20 01:29:57', '2022-026-TG-0'),
+(27, 'Vaneric Galang', 'N/A', 'San Pascual', 'N/A', 0, 'Female', 'N/A', 'vanericsanpascual@gmail.com', 9159532593, 'password', '2024-07-20 01:29:57', '2024-07-20 01:29:57', '2022-027-TG-0'),
+(28, 'Ma. Ellyza Rufino', 'N/A', 'Teniero', 'N/A', 0, 'Female', 'N/A', 'ellyza.teniero@gmail.com', 9663882225, 'password', '2024-07-20 01:29:57', '2024-07-20 01:29:57', '2022-028-TG-0'),
+(29, 'Aliza Balde', 'N/A', 'Tobongbanua', 'N/A', 0, 'Female', 'N/A', 'alizabalde@gmail.com', 9391549763, 'password', '2024-07-20 01:29:57', '2024-07-20 01:29:57', '2022-029-TG-0'),
+(30, 'Danzig Lawrence Villamena', 'N/A', 'Uy', 'N/A', 0, 'Male', 'N/A', 'danzigvillamena@gmail.com', 9274576469, 'password', '2024-07-20 01:29:57', '2024-07-20 01:29:57', '2022-030-TG-0'),
+(31, 'Jhay Dominique Parongao', 'N/A', 'Velasco', 'N/A', 0, 'Male', 'N/A', 'jhayvelasco@gmail.com', 9953544649, 'password', '2024-07-20 01:29:57', '2024-07-20 01:29:57', '2022-031-TG-0'),
+(32, 'Joshua Florante', 'N/A', 'Vidal', 'N/A', 0, 'Male', 'N/A', 'joshua.vidal@gmail.com', 9617029780, 'password', '2024-07-20 01:29:57', '2024-07-20 01:29:57', '2022-032-TG-0'),
+(33, 'Mary Rose Ann Lagare', 'N/A', 'Virtudazo', 'N/A', 0, 'Female', 'N/A', 'maryroseann@gmail.com', 9618006620, 'password', '2024-07-20 01:29:57', '2024-07-20 01:29:57', '2022-033-TG-0'),
+(38, 'sadsa', 'sada', 'dsad', '2002-02-05', 0, '', '', 'rerrere@gmail.com', 0, '$2y$10$IFcGt6pFeSkEtePhKKBIA.p975mbDQ.oRXQBF/X94.YpDBO1zRRkS', '2024-08-31 02:40:37', '2024-08-31 02:40:37', '2022-034-TG-0'),
+(39, 'haha', 'hhee', 'hihi', '2024-04-26', 0, '', '', 'reasdsadsada@gmail.com', 0, '$2y$10$39m5A23O81frMp0U4NG8nuVbTq8HDxTSC8/EswcTHtwqkXCCYiqdO', '2024-08-31 03:49:25', '2024-08-31 03:49:25', '2022-035-TG-0');
 
 --
 -- Indexes for dumped tables
@@ -323,13 +329,13 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `professor`
 --
 ALTER TABLE `professor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
