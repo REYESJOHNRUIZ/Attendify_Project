@@ -29,14 +29,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result->num_rows === 1) {
         $row = $result->fetch_assoc();
+        $hashed_password = $row['password'];
 
-        if (password_verify($password, $row['password'])) {
+        if (password_verify($password, $hashed_password)) {
+            // Password is hashed and correct
             echo "Password is correct";
+        } elseif ($password === $hashed_password) {
+            // Password is not hashed, but matches the stored password
+            // Now hash the password and update the database
+            $new_hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+            if (strpos($special_key, "20") === 0) {
+                $update_stmt = $conn->prepare("UPDATE student SET password = ? WHERE student_number = ?");
+            } elseif (strpos($special_key, "P") === 0) {
+                $update_stmt = $conn->prepare("UPDATE professor SET password = ? WHERE prof_id = ?");
+            } elseif (strpos($special_key, "A") === 0) {
+                $update_stmt = $conn->prepare("UPDATE admin SET password = ? WHERE admin_id = ?");
+            }
+
+            $update_stmt->bind_param("ss", $new_hashed_password, $special_key);
+            $update_stmt->execute();
+
+            echo "Password updated and is correct";
         } else {
             header("Location: ../works/log_in_form.html?error=loginfailed");
             exit();
         }
 
+        // Set session variables and redirect as before
         if (strpos($special_key, "20") === 0) {
             $_SESSION['student_name'] = $row['firstname'] . ' ' . $row['lastname'];
             $_SESSION['gender'] = $row['gender'];
@@ -48,7 +68,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } elseif (strpos($special_key, "P") === 0) {
             $_SESSION['prof_id'] = $row['prof_id'];
             $_SESSION['prof_name'] = $row['firstname'] . ' ' . $row['lastname'];
-            echo "Professor Name set in session: " . $_SESSION['prof_name']; 
             header("Location: ../works/professor_dashboard.php");
         } elseif (strpos($special_key, "A") === 0) {
             $_SESSION['admin_id'] = $row['admin_id'];
