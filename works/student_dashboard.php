@@ -133,7 +133,7 @@ $dates_json = json_encode($dates);
             const logoutButton = document.getElementById("logout_button");
             if (logoutButton) {
                 logoutButton.addEventListener("click", function () {
-                    fetch('logout.php')
+                    fetch('../php/logout.php')
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
