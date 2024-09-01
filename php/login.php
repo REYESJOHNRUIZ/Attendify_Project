@@ -1,8 +1,20 @@
 <?php
 session_start();
-
 require '../db_connect.php';
 
+// Check if the user is already logged in and redirect accordingly
+if (isset($_SESSION['student_number'])) {
+    header("Location: ../works/student_dashboard.php");
+    exit();
+} elseif (isset($_SESSION['prof_id'])) {
+    header("Location: ../works/professor_dashboard.php");
+    exit();
+} elseif (isset($_SESSION['admin_id'])) {
+    header("Location: ../works/administrator_dashboard.php");
+    exit();
+}
+
+// Process the login form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $special_key = trim($_POST['student_number']);
     $password = $_POST['password'];

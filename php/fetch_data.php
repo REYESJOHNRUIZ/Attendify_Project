@@ -1,4 +1,11 @@
 <?php
+
+// Optional: Session check if needed for security
+if (!isset($_SESSION['admin_id'])) {
+    header('HTTP/1.1 401 Unauthorized');
+    echo json_encode(['error' => 'Unauthorized']);
+    exit();
+}
 header('Content-Type: application/json');
 require '../db_connect.php';
 

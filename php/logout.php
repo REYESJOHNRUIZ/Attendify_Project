@@ -2,7 +2,7 @@
 session_start();
 session_unset();
 session_destroy();
-
-header('Content-Type: application/json');
-echo json_encode(['success' => true]);
+echo "Logged out successfully"; // Debugging line
+header("Location: ../index.php"); // Adjust path if needed
+exit();
 ?>

@@ -1,6 +1,11 @@
 <?php
 require '../db_connect.php';
 
+// Check if the admin is logged in
+if (!isset($_SESSION['admin_id'])) {
+  header("Location: ../works/log_in_form.html"); // Redirect to login page if not logged in
+  exit();
+}
 // Fetch Student Data
 $student_query = "SELECT id, lastname, firstname, email FROM student";
 $student_result = $conn->query($student_query);
