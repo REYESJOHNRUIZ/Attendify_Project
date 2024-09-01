@@ -133,14 +133,7 @@ $dates_json = json_encode($dates);
             const logoutButton = document.getElementById("logout_button");
             if (logoutButton) {
                 logoutButton.addEventListener("click", function () {
-                    fetch('../php/logout.php')
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                window.location.href = "../index.html"; // Redirect to index.html
-                            }
-                        })
-                        .catch(error => console.error('Error:', error));
+                    location.href = "../php/logout.php";
                 });
             }
         });
