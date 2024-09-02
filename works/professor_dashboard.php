@@ -34,8 +34,6 @@ $courses_data = $courses_result->fetch_all(MYSQLI_ASSOC);
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Public+Sans:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="../styles/professor_dashboard_styles.css">
-  <!-- Google Charts Library -->
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
   <div class="container">
@@ -84,36 +82,27 @@ $courses_data = $courses_result->fetch_all(MYSQLI_ASSOC);
 
       <div id="attendance-page" class="page">
         <header>
-          <h1>Attendance</h1>
+          <h1 id="class-header"></h1>
         </header>
-
-        <!-- Form to select the date -->
-        <form id="date-form">
-            <input type="date" id="date" name="date" required>
-            <button type="submit">View Attendance</button>
-        </form>
-
-        <!-- Container for the chart -->
-        <div id="chart_div"></div>
-
-        <!-- Container for detailed class attendance information -->
-        <div id="details_div"></div>
-
         <table>
-          <tr>
-            <th>Student Number</th>
-            <th>Last Name</th>
-            <th>First Name</th>
-            <th>Status</th>
-          </tr>
+          <thead>
+            <tr>
+              <th>Student Number</th>
+              <th>Last Name</th>
+              <th>First Name</th>
+              <th>Present</th>
+              <th>Absent</th>
+              <th>Excused</th>
+            </tr>
+          </thead>
           <tbody id="attendance-tbody">
             <!-- Attendance data will be dynamically loaded here -->
           </tbody>
         </table>
+        <button class="upload">Upload Students</button>
       </div>
     </div>
   </div>
   <script src="../js/professor_dashboard.js"></script>
-  <script src="../js/attendance_details_script.js"></script>
 </body>
 </html>
