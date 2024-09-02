@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   // Check if passwords match
   if ($password !== $confirmPassword) {
-    echo "Passwords do not match.";
+    echo "<script>alert('Passwords do not match.'); window.history.back();</script>";
     exit;
   }
 
@@ -25,7 +25,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $stmt->store_result();
 
   if ($stmt->num_rows > 0) {
-    echo "Email already exists.";
+    echo "<script>alert('Email already exists.'); window.history.back();</script>";
+    exit;
+  }
+
+  // Check if student number already exists
+  $stmt = $conn->prepare("SELECT student_number FROM student WHERE student_number = ?");
+  $stmt->bind_param("s", $student_number);
+  $stmt->execute();
+  $stmt->store_result();
+
+  if ($stmt->num_rows > 0) {
+    echo "<script>alert('Student number already has an account.'); window.history.back();</script>";
     exit;
   }
 
@@ -35,9 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   // Execute the query and check for success
   if ($stmt->execute()) {
-    echo "Sign up successful";
+    echo "<script>alert('Sign up successful. Redirecting to login...'); window.location.href = '../works/log_in_form.html';</script>";
   } else {
-    echo "Error: " . $stmt->error;
+    echo "<script>alert('Error: " . $stmt->error . "'); window.history.back();</script>";
   }
 
   // Close connections
