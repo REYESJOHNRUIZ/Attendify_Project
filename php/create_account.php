@@ -18,12 +18,9 @@ $row = $result->fetch_assoc();
 $last_id = $row['max_id'];
 $new_id = sprintf("P%05d", ($last_id ? $last_id + 1 : 1));
 
-// Hash the password for security
-$hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
 // Insert data into database using prepared statement
 $stmt = $conn->prepare("INSERT INTO professor (firstname, middlename, lastname, birthday, email, course, status, password, prof_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("sssssssss", $firstname, $middlename, $lastname, $birthday, $email, $course, $status, $hashed_password, $new_id);
+$stmt->bind_param("sssssssss", $firstname, $middlename, $lastname, $birthday, $email, $course, $status, $password, $new_id);
 
 if ($stmt->execute()) {
     echo "<script>

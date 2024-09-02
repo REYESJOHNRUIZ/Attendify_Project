@@ -29,12 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
   }
 
-  // Hash the password
-  $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-
   // Insert student into the database
   $stmt = $conn->prepare("INSERT INTO student (firstname, middlename, lastname, birthday, email, password, student_number) VALUES (?, ?, ?, ?, ?, ?, ?)");
-  $stmt->bind_param("sssssss", $firstname, $middlename, $lastname, $birthday, $email, $passwordHash, $student_number);
+  $stmt->bind_param("sssssss", $firstname, $middlename, $lastname, $birthday, $email, $password, $student_number);
 
   // Execute the query and check for success
   if ($stmt->execute()) {
