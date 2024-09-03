@@ -64,7 +64,7 @@ $dates_json = json_encode($dates);
     <div class="sidebar">
         <h1>ATTENDIFY</h1>
         <div class="profile">
-            <img src="../assets/images/1.png" alt="Profile Picture">
+            <img src="../assets/images/stdnIcon.png" alt="Profile Picture">
             <h2>Welcome back, <?php echo htmlspecialchars($student['firstname']); ?>!</h2>
             <p>Name: <?php echo htmlspecialchars($student['firstname'] . ' ' . $student['lastname']); ?></p>
             <p>Email: <?php echo htmlspecialchars($student['email']); ?></p>
