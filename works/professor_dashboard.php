@@ -7,13 +7,11 @@ if (!isset($_SESSION['prof_id'])) {
     exit;
 }
 
-
 if (!isset($_SESSION['prof_name'])) {
     die("Error: 'prof_name' is not set in session. Please check your login process.");
 }
 
 $prof_id = $_SESSION['prof_id'];
-
 
 $courses_stmt = $conn->prepare("
     SELECT co.course_code, c.class_no
@@ -29,18 +27,14 @@ $courses_data = $courses_result->fetch_all(MYSQLI_ASSOC);
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Attendify</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Public+Sans:wght@300;400;600&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Public+Sans:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="../styles/professor_dashboard_styles.css">
 </head>
-
 <body>
   <div class="container">
     <div class="sidebar">
@@ -70,7 +64,7 @@ $courses_data = $courses_result->fetch_all(MYSQLI_ASSOC);
         </header>
         <div class="courses">
           <?php foreach ($courses_data as $course): ?>
-            <div class="course" onclick="showClasses('<?php echo $course['class_no']; ?>')">
+            <div class="course" onclick="showClasses('<?php echo $course['course_code']; ?>')">
               <?php echo $course['course_code']; ?>
             </div>
           <?php endforeach; ?>
@@ -82,33 +76,38 @@ $courses_data = $courses_result->fetch_all(MYSQLI_ASSOC);
           <h1>CLASSES</h1>
         </header>
         <div class="classes">
-          <!-- Classes will be dynamically loaded based on selected course -->
+          
         </div>
       </div>
 
       <div id="attendance-page" class="page">
         <header>
-          <h1>Attendance</h1>
+            <h1 id="class-header"></h1>
         </header>
+
+        <div class="date-picker-container">
+            <label for="attendance-date-picker">Select Date: </label>
+            <input type="date" id="attendance-date-picker" onchange="updateAttendanceDate()">
+        </div>
+
         <table>
-          <tr>
-            <th>Student Number</th>
-            <th>Last Name</th>
-            <th>First Name</th>
-            <th>Present</th>
-            <th>Absent</th>
-            <th>Excused</th>
-          </tr>
-          <tbody id="attendance-tbody">
-            <!-- Attendance data will be dynamically loaded here -->
-          </tbody>
+            <thead>
+                <tr>
+                    <th>Student Number</th>
+                    <th>Last Name</th>
+                    <th>First Name</th>
+                    <th>Present</th>
+                    <th>Absent</th>
+                    <th>Excused</th>
+                </tr>
+            </thead>
+            <tbody id="attendance-tbody">
+            </tbody>
         </table>
-        <button class="upload">Upload Students</button>
-        <button class="save">Save</button>
-      </div>
+        <button id="save-attendance" onclick="saveAttendance()">Save Attendance</button>
+    </div>
     </div>
   </div>
   <script src="../js/professor_dashboard.js"></script>
 </body>
-
 </html>
