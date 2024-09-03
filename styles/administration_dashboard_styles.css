@@ -1,8 +1,8 @@
-body {
+ body {
   font-family: "Arial", sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #ffffff; /* Updated background color */
+  background-color: #ffffff;
 }
 
 .dashboard-container {
@@ -12,7 +12,10 @@ body {
 
 .sidebar {
   background-color: #47525e;
+  position: sticky;
+  height: 100%;
   width: 250px;
+  left: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -22,7 +25,7 @@ body {
 
 .logo {
   text-align: center;
-  color: #cccbb6; /* Updated color for ATTENDIFY */
+  color: #cccbb6; 
 }
 
 .logo h2 {
@@ -31,8 +34,8 @@ body {
 }
 
 .logo-image {
-  margin-top: 10px; /* Adjust spacing as needed */
-  max-width: 80%; /* Adjust size as needed */
+  margin-top: 10px; 
+  max-width: 80%; 
   height: auto;
 }
 
@@ -75,16 +78,17 @@ body {
 
 .main-content {
   flex-grow: 1;
+  overflow: auto;
   padding: 30px;
-  background-color: #ffffff; /* White background for the main content */
+  background-color: #ffffff;
   box-sizing: border-box;
 }
 
 header {
-  border-bottom: 2px solid #c18c5d; /* Line color */
-  padding-bottom: 10px; /* Space between the header and the line */
-  margin-bottom: 20px; /* Space between the line and the content below */
-  text-align: center; /* Center the text horizontally */
+  border-bottom: 2px solid #c18c5d;
+  padding-bottom: 10px; 
+  margin-bottom: 20px; 
+  text-align: center; 
 }
 
 header h1 {
@@ -94,11 +98,11 @@ header h1 {
 }
 
 .content-section {
-  display: none; /* Hide all sections by default */
+  display: none; 
 }
 
 .content-section.active {
-  display: block; /* Show the active section */
+  display: block; 
 }
 
 .charts-container {
@@ -119,7 +123,7 @@ header h1 {
 table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #fff5e1; /* Background color for tables */
+  background-color: #fff5e1;
 }
 
 th,
@@ -136,8 +140,8 @@ thead th {
 
 .menu-icon {
   margin-right: 10px;
-  width: 24px; /* Adjust width as needed */
-  height: auto; /* Maintain aspect ratio */
+  width: 24px; 
+  height: auto; 
 }
 .create-professor {
   text-align: center;
@@ -145,12 +149,12 @@ thead th {
 }
 
 #create-prof {
-  background-color: #e0e0e0; /* Match the Logout button's background color */
-  color: #4e4e4e; /* Match the Logout button's text color */
+  background-color: #e0e0e0; 
+  color: #4e4e4e; 
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 1em;
-  text-align: center; /* Center the text inside the button */
+  text-align: center;
 }
