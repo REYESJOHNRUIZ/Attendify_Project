@@ -14,15 +14,18 @@ if (!isset($_SESSION['prof_name'])) {
 $prof_id = $_SESSION['prof_id'];
 
 $courses_stmt = $conn->prepare("
-    SELECT DISTINCT co.course_code, c.class_no
-    FROM courses co
-    JOIN class c ON co.courses_id = c.courses_id
-    WHERE c.prof_id = ?
+    select courses.* from professor
+    join courses on courses.course_code = professor.course
+    where prof_id = ?
 ");
+
 $courses_stmt->bind_param("s", $prof_id);
 $courses_stmt->execute();
 $courses_result = $courses_stmt->get_result();
 $courses_data = $courses_result->fetch_all(MYSQLI_ASSOC);
+$data = $courses_data[0];
+$course_id = $data['courses_id'];
+$course_name = $data['course_code'];
 ?>
 
 <!DOCTYPE html>
@@ -68,7 +71,7 @@ $courses_data = $courses_result->fetch_all(MYSQLI_ASSOC);
         </header>
         <div class="courses">
           <?php foreach ($courses_data as $course): ?>
-            <div class="course" onclick="showClasses('<?php echo $course['course_code']; ?>')">
+            <div class="course" onclick="showClasses('<?php echo $course_id; ?>')">
               <?php echo $course['course_code']; ?>
             </div>
           <?php endforeach; ?>
