@@ -13,12 +13,6 @@ if (!isset($_SESSION['prof_name'])) {
 
 $prof_id = $_SESSION['prof_id'];
 
-// $courses_stmt = $conn->prepare("
-//     select distinct professor.prof_id, class.class_no from professor 
-//     join class on professor.prof_id = class.prof_id
-//     where professor.prof_id = ?
-// ");
-
 $courses_stmt = $conn->prepare("
     select courses.* from professor
     join courses on courses.course_code = professor.course

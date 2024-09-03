@@ -20,6 +20,9 @@ h2,
 
 /* Sidebar */
 .sidebar {
+  position: sticky;
+  left: 0;
+  height: 100%;
   width: 25%;
   background-color: #3b4754;
   color: white;
@@ -95,6 +98,7 @@ h2,
 
 /* Main Content */
 .main-content {
+  overflow: auto;
   width: 75%;
   padding: 40px;
   background-color: #fdf3e7;
