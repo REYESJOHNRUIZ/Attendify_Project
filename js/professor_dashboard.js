@@ -52,47 +52,54 @@ function selectClass(selectedClassNo, selectedCourseCode) {
 }
 
 function showAttendance(classNo, courseCode, date) {
-    fetch(`../php/get_attendance_data.php?class_no=${classNo}&date=${date}`)
-        .then(response => response.json())
-        .then(data => {
-            const attendancePage = document.getElementById('attendance-page');
-            const attendanceTbody = attendancePage.querySelector('#attendance-tbody');
-            const classHeader = document.getElementById('class-header');
+  fetch(`../php/get_attendance_data.php?class_no=${classNo}&date=${date}`)
+      .then(response => response.json())
+      .then(data => {
+          const attendancePage = document.getElementById('attendance-page');
+          const attendanceTbody = attendancePage.querySelector('#attendance-tbody');
+          const classHeader = document.getElementById('class-header');
 
-            classHeader.innerText = `${courseCode} ${classNo}`;
+          classHeader.innerText = `${courseCode} ${classNo}`;
 
-            if (!attendanceTbody) {
-                console.error('Error: attendance-tbody element not found.');
-                return;
-            }
+          if (!attendanceTbody) {
+              console.error('Error: attendance-tbody element not found.');
+              return;
+          }
 
-            attendanceTbody.innerHTML = '';
+          // Remove duplicates from the fetched data
+          const uniqueStudents = Array.from(new Set(data.map(s => s.student_no)))
+              .map(student_no => {
+                  return data.find(s => s.student_no === student_no);
+              });
 
-            data.forEach(record => {
-                const row = document.createElement('tr');
+          attendanceTbody.innerHTML = '';
 
-                row.innerHTML = `
-                    <td>${record.student_no}</td>
-                    <td>${record.last_name}</td>
-                    <td>${record.first_name}</td>
-                    <td class="attendance-status">
-                        <input type="radio" name="status-${record.student_no}" value="Present" ${record.status === 'Present' ? 'checked' : ''}>
-                    </td>
-                    <td class="attendance-status">
-                        <input type="radio" name="status-${record.student_no}" value="Absent" ${record.status === 'Absent' ? 'checked' : ''}>
-                    </td>
-                    <td class="attendance-status">
-                        <input type="radio" name="status-${record.student_no}" value="Excused" ${record.status === 'Excused' ? 'checked' : ''}>
-                    </td>
-                `;
+          uniqueStudents.forEach(record => {
+              const row = document.createElement('tr');
 
-                attendanceTbody.appendChild(row);
-            });
+              row.innerHTML = `
+                  <td>${record.student_no}</td>
+                  <td>${record.last_name}</td>
+                  <td>${record.first_name}</td>
+                  <td class="attendance-status">
+                      <input type="radio" name="status-${record.student_no}" value="Present" ${record.status === 'Present' ? 'checked' : ''}>
+                  </td>
+                  <td class="attendance-status">
+                      <input type="radio" name="status-${record.student_no}" value="Absent" ${record.status === 'Absent' ? 'checked' : ''}>
+                  </td>
+                  <td class="attendance-status">
+                      <input type="radio" name="status-${record.student_no}" value="Excused" ${record.status === 'Excused' ? 'checked' : ''}>
+                  </td>
+              `;
 
-            showPage('attendance-page');
-        })
-        .catch(error => console.error('Error fetching attendance:', error));
+              attendanceTbody.appendChild(row);
+          });
+
+          showPage('attendance-page');
+      })
+      .catch(error => console.error('Error fetching attendance:', error));
 }
+
 
 function updateAttendanceDate() {
     const datePicker = document.getElementById('attendance-date-picker');
@@ -106,41 +113,42 @@ function updateAttendanceDate() {
 }
 
 function saveAttendance() {
-    const attendanceData = [];
-    const rows = document.querySelectorAll('#attendance-tbody tr');
+  const attendanceData = [];
+  const rows = document.querySelectorAll('#attendance-tbody tr');
 
-    rows.forEach(row => {
-        const studentNo = row.querySelector('td:nth-child(1)').innerText;
-        const status = row.querySelector('input[name="status-' + studentNo + '"]:checked')?.value || '';
+  rows.forEach(row => {
+      const studentNo = row.querySelector('td:nth-child(1)').innerText;
+      const status = row.querySelector('input[name="status-' + studentNo + '"]:checked')?.value || '';
 
-        attendanceData.push({
-            student_no: studentNo,
-            status: status
-        });
-    });
+      attendanceData.push({
+          student_no: studentNo,
+          status: status
+      });
+  });
 
-    const date = document.getElementById('attendance-date-picker').value;
+  const date = document.getElementById('attendance-date-picker').value;
+  const classNo = document.getElementById('class-header').innerText.split(' ')[1];
 
-    fetch('../php/save_attendance.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            class_no: classNo,
-            date: date,
-            attendance: attendanceData
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert('Attendance saved successfully.');
-        } else {
-            alert('Failed to save attendance.');
-        }
-    })
-    .catch(error => console.error('Error saving attendance:', error));
+  fetch('../php/save_attendance.php', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+          class_no: classNo,
+          date: date,
+          attendance: attendanceData
+      })
+  })
+  .then(response => response.json())
+  .then(data => {
+      if (data.success) {
+          alert('Attendance saved successfully.');
+      } else {
+          alert('Failed to save attendance.');
+      }
+  })
+  .catch(error => console.error('Error saving attendance:', error));
 }
 
 function showPage(pageId) {

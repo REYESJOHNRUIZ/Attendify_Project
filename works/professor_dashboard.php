@@ -49,6 +49,7 @@ $courses_data = $courses_result->fetch_all(MYSQLI_ASSOC);
         </div>
       </div>
       <div class="bottom-items">
+        <button class="view-students" onclick="location.href='view_students.php'">View Students</button>
         <button class="back" onclick="goBack()">
           <i class="fas fa-arrow-left"></i> BACK
         </button>
@@ -58,6 +59,9 @@ $courses_data = $courses_result->fetch_all(MYSQLI_ASSOC);
       </div>
     </div>
     <div class="main-content">
+      <header>
+        <h1>Professor Dashboard</h1>
+      </header>
       <div id="courses-page" class="page active">
         <header>
           <h1>COURSES</h1>
@@ -76,36 +80,36 @@ $courses_data = $courses_result->fetch_all(MYSQLI_ASSOC);
           <h1>CLASSES</h1>
         </header>
         <div class="classes">
-          
+          <!-- Classes will be dynamically loaded based on selected course -->
         </div>
       </div>
 
       <div id="attendance-page" class="page">
         <header>
-            <h1 id="class-header"></h1>
+          <h1 id="class-header"></h1>
         </header>
 
         <div class="date-picker-container">
-            <label for="attendance-date-picker">Select Date: </label>
-            <input type="date" id="attendance-date-picker" onchange="updateAttendanceDate()">
+          <label for="attendance-date-picker">Select Date: </label>
+          <input type="date" id="attendance-date-picker" onchange="updateAttendanceDate()">
         </div>
 
         <table>
-            <thead>
-                <tr>
-                    <th>Student Number</th>
-                    <th>Last Name</th>
-                    <th>First Name</th>
-                    <th>Present</th>
-                    <th>Absent</th>
-                    <th>Excused</th>
-                </tr>
-            </thead>
-            <tbody id="attendance-tbody">
-            </tbody>
+          <thead>
+            <tr>
+              <th>Student Number</th>
+              <th>Last Name</th>
+              <th>First Name</th>
+              <th>Present</th>
+              <th>Absent</th>
+              <th>Excused</th>
+            </tr>
+          </thead>
+          <tbody id="attendance-tbody">
+          </tbody>
         </table>
-        <button id="save-attendance" onclick="saveAttendance()">Save Attendance</button>
-    </div>
+        <button class="upload" onclick="saveAttendance()">Save Attendance</button>
+      </div>
     </div>
   </div>
   <script src="../js/professor_dashboard.js"></script>
