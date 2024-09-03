@@ -10,7 +10,7 @@ if (!isset($_GET['course_code'])) {
 $course_code = $_GET['course_code'];
 
 $stmt = $conn->prepare("
-    SELECT c.class_no 
+    SELECT DISTINCT c.class_no 
     FROM class c 
     JOIN courses co ON c.courses_id = co.courses_id 
     WHERE co.course_code = ?

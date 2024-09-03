@@ -14,7 +14,7 @@ if (!isset($_SESSION['prof_name'])) {
 $prof_id = $_SESSION['prof_id'];
 
 $courses_stmt = $conn->prepare("
-    SELECT co.course_code, c.class_no
+    SELECT DISTINCT co.course_code, c.class_no
     FROM courses co
     JOIN class c ON co.courses_id = c.courses_id
     WHERE c.prof_id = ?
