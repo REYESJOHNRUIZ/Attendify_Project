@@ -69,7 +69,6 @@ $dates_json = json_encode($dates);
             <p>Name: <?php echo htmlspecialchars($student['firstname'] . ' ' . $student['lastname']); ?></p>
             <p>Email: <?php echo htmlspecialchars($student['email']); ?></p>
             <p>Student no.: <?php echo htmlspecialchars($student['student_number']); ?></p>
-            <p>User: S001</p> <!-- Assuming user code is static or retrieved elsewhere -->
             <p>Section: <?php echo htmlspecialchars($_SESSION['section']); ?></p>
         </div>
         <button id="logout_button">LOG OUT</button>
