@@ -6,7 +6,7 @@ $student_query = "SELECT id, lastname, firstname, email FROM student";
 $student_result = $conn->query($student_query);
 
 // Fetch Professor Data
-$professor_query = "SELECT id, lastname, firstname, status, email FROM professor";
+$professor_query = "SELECT id, lastname, firstname, status, email, prof_id FROM professor";
 $professor_result = $conn->query($professor_query);
 ?>
 
@@ -77,7 +77,6 @@ $professor_result = $conn->query($professor_query);
         <table>
           <thead>
             <tr>
-              <th>#</th>
               <th>LastName</th>
               <th>Firstname</th>
               <th>Email</th>
@@ -88,14 +87,13 @@ $professor_result = $conn->query($professor_query);
             if ($student_result->num_rows > 0) {
               while ($row = $student_result->fetch_assoc()) {
                 echo "<tr>
-                        <td>{$row['id']}</td>
                         <td>{$row['lastname']}</td>
                         <td>{$row['firstname']}</td>
                         <td>{$row['email']}</td>
                       </tr>";
               }
             } else {
-              echo "<tr><td colspan='4'>No students found</td></tr>";
+              echo "<tr><td colspan='5'>No students found</td></tr>";
             }
             ?>
           </tbody>
@@ -108,7 +106,7 @@ $professor_result = $conn->query($professor_query);
         <table>
           <thead>
             <tr>
-              <th>#</th>
+              <th>ProfID</th>
               <th>LastName</th>
               <th>Firstname</th>
               <th>Status</th>
@@ -120,7 +118,7 @@ $professor_result = $conn->query($professor_query);
             if ($professor_result->num_rows > 0) {
               while ($row = $professor_result->fetch_assoc()) {
                 echo "<tr>
-                        <td>{$row['id']}</td>
+                        <td>{$row['prof_id']}</td>
                         <td>{$row['lastname']}</td>
                         <td>{$row['firstname']}</td>
                         <td>{$row['status']}</td>
