@@ -1,62 +1,91 @@
-let currentPage = "courses-page";
-
-function showClasses(classNo) {
-  currentPage = "classes-page";
-  document.getElementById("courses-page").classList.remove("active");
-  document.getElementById("classes-page").classList.add("active");
-  
-}
-
-function showAttendance(classNo) {
-  currentPage = "attendance-page";
-  document.getElementById("classes-page").classList.remove("active");
-  document.getElementById("attendance-page").classList.add("active");
-
-  const date = new Date().toISOString().split('T')[0]; 
-  fetch(`../php/get_attendance.php?class_no=${classNo}&date=${date}`)
+function showClasses(courseCode) {
+  fetch(`../php/get_classes.php?course_code=${courseCode}`)
     .then(response => response.json())
     .then(data => {
-      const tbody = document.getElementById("attendance-tbody");
-      tbody.innerHTML = "";
-      if (data.message) {
-        tbody.innerHTML = `<tr><td colspan="6">${data.message}</td></tr>`;
-      } else {
-        data.forEach(student => {
-          tbody.innerHTML += `
-            <tr>
-              <td>${student.student_no}</td>
-              <td>${student.last_name}</td>
-              <td>${student.first_name}</td>
-              <td><span class="present" onclick="markAttendance(this, 'present')"></span></td>
-              <td><span class="absent" onclick="markAttendance(this, 'absent')"></span></td>
-              <td><span class="excused" onclick="markAttendance(this, 'excused')"></span></td>
-            </tr>
-          `;
-        });
+      const classesPage = document.getElementById('classes-page');
+      const classesContainer = classesPage.querySelector('.classes');
+
+      if (data.error) {
+        console.error('Error fetching classes:', data.error);
+        return;
       }
+
+      classesContainer.innerHTML = ''; // Clear previous classes
+
+      data.forEach(cls => {
+        const classDiv = document.createElement('div');
+        classDiv.className = 'class';
+        classDiv.innerHTML = `
+          <div onclick="showAttendance('${cls.class_no}', '${courseCode}')">${cls.class_no}</div>
+        `;
+        classesContainer.appendChild(classDiv);
+      });
+
+      showPage('classes-page');
+    })
+    .catch(error => console.error('Error fetching classes:', error));
+}
+
+function showAttendance(classNo, courseCode) {
+  fetch(`../php/get_attendance_data.php?class_no=${classNo}&date=2024-09-01`)
+    .then(response => response.json())
+    .then(data => {
+      const attendancePage = document.getElementById('attendance-page');
+      const attendanceTbody = attendancePage.querySelector('#attendance-tbody');
+      const classHeader = document.getElementById('class-header');
+
+      // Correctly set the header to show course code and class number
+      classHeader.innerText = `${courseCode} ${classNo}`;
+
+      if (!attendanceTbody) {
+        console.error('Error: attendance-tbody element not found.');
+        return;
+      }
+
+      attendanceTbody.innerHTML = ''; // Clear any previous data
+
+      data.forEach(record => {
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+          <td>${record.student_no}</td>
+          <td>${record.last_name}</td>
+          <td>${record.first_name}</td>
+          <td class="attendance-status">
+            <input type="radio" name="status-${record.student_no}" value="Present" ${record.status === 'Present' ? 'checked' : ''}>
+          </td>
+          <td class="attendance-status">
+            <input type="radio" name="status-${record.student_no}" value="Absent" ${record.status === 'Absent' ? 'checked' : ''}>
+          </td>
+          <td class="attendance-status">
+            <input type="radio" name="status-${record.student_no}" value="Excused" ${record.status === 'Excused' ? 'checked' : ''}>
+          </td>
+        `;
+
+        attendanceTbody.appendChild(row);
+      });
+
+      showPage('attendance-page');
     })
     .catch(error => console.error('Error fetching attendance:', error));
 }
 
-
-function goBack() {
-  if (currentPage === "attendance-page") {
-    document.getElementById("attendance-page").classList.remove("active");
-    document.getElementById("classes-page").classList.add("active");
-    currentPage = "classes-page";
-  } else if (currentPage === "classes-page") {
-    document.getElementById("classes-page").classList.remove("active");
-    document.getElementById("courses-page").classList.add("active");
-    currentPage = "courses-page";
-  }
+function showPage(pageId) {
+  const pages = document.querySelectorAll('.page');
+  pages.forEach(page => {
+    page.classList.remove('active');
+  });
+  document.getElementById(pageId).classList.add('active');
 }
 
-function markAttendance(element, type) {
-  element.classList.toggle("active");
-  const siblings = element.parentElement.children;
-  for (let i = 0; i < siblings.length; i++) {
-    if (siblings[i] !== element) {
-      siblings[i].classList.remove("active");
-    }
+function goBack() {
+  const currentActivePage = document.querySelector('.page.active');
+  
+  if (currentActivePage.id === 'attendance-page') {
+    showPage('classes-page');
+  } else if (currentActivePage.id === 'classes-page') {
+    showPage('courses-page');
+  } else {
+    console.error('No previous page to navigate to.');
   }
 }
