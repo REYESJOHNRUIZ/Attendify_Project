@@ -8,12 +8,32 @@ if (!isset($_SESSION['student_number'])) {
 require '../db_connect.php';
 
 $student_number = $_SESSION['student_number'];
+
+// Fetch student data
 $stmt = $conn->prepare("SELECT * FROM student WHERE student_number = ?");
 $stmt->bind_param("s", $student_number);
 $stmt->execute();
 $result = $stmt->get_result();
 $student = $result->fetch_assoc();
 
+// Fetch section information (class_no)
+$stmt = $conn->prepare("
+    SELECT class.class_no 
+    FROM class 
+    WHERE class.student_no = ?");
+$stmt->bind_param("s", $student_number);
+$stmt->execute();
+$section_result = $stmt->get_result();
+$section = $section_result->fetch_assoc();
+
+// Check if section data exists and store it in session
+if ($section) {
+    $_SESSION['section'] = $section['class_no'];
+} else {
+    $_SESSION['section'] = 'N/A'; // Default value if section is not found
+}
+
+// Fetch attendance dates
 $stmt = $conn->prepare("SELECT DISTINCT date FROM attendance WHERE student_no = ?");
 $stmt->bind_param("s", $student_number);
 $stmt->execute();
@@ -44,7 +64,7 @@ $dates_json = json_encode($dates);
     <div class="sidebar">
         <h1>ATTENDIFY</h1>
         <div class="profile">
-            <img src="path-to-profile-image" alt="Profile Picture">
+            <img src="../assets/images/1.png" alt="Profile Picture">
             <h2>Welcome back, <?php echo htmlspecialchars($student['firstname']); ?>!</h2>
             <p>Name: <?php echo htmlspecialchars($student['firstname'] . ' ' . $student['lastname']); ?></p>
             <p>Email: <?php echo htmlspecialchars($student['email']); ?></p>
@@ -113,14 +133,7 @@ $dates_json = json_encode($dates);
             const logoutButton = document.getElementById("logout_button");
             if (logoutButton) {
                 logoutButton.addEventListener("click", function () {
-                    fetch('logout.php')
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                window.location.href = "../index.html"; // Redirect to index.html
-                            }
-                        })
-                        .catch(error => console.error('Error:', error));
+                    location.href = "../php/logout.php";
                 });
             }
         });
