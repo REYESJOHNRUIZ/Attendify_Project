@@ -81,26 +81,31 @@ $courses_data = $courses_result->fetch_all(MYSQLI_ASSOC);
       </div>
 
       <div id="attendance-page" class="page">
-        <header>
-          <h1 id="class-header"></h1>
-        </header>
-        <table>
-          <thead>
+    <header>
+        <h1 id="class-header"></h1>
+    </header>
+
+    <div class="date-picker-container">
+        <label for="attendance-date-picker">Select Date: </label>
+        <input type="date" id="attendance-date-picker" onchange="updateAttendanceDate()">
+    </div>
+
+    <table>
+        <thead>
             <tr>
-              <th>Student Number</th>
-              <th>Last Name</th>
-              <th>First Name</th>
-              <th>Present</th>
-              <th>Absent</th>
-              <th>Excused</th>
+                <th>Student Number</th>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>Present</th>
+                <th>Absent</th>
+                <th>Excused</th>
             </tr>
-          </thead>
-          <tbody id="attendance-tbody">
-            <!-- Attendance data will be dynamically loaded here -->
-          </tbody>
-        </table>
-        <button class="upload">Upload Students</button>
-      </div>
+        </thead>
+        <tbody id="attendance-tbody">
+        </tbody>
+    </table>
+    <button class="upload">Upload Students</button>
+</div>
     </div>
   </div>
   <script src="../js/professor_dashboard.js"></script>

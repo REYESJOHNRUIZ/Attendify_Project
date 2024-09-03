@@ -16,7 +16,9 @@ function showClasses(courseCode) {
         const classDiv = document.createElement('div');
         classDiv.className = 'class';
         classDiv.innerHTML = `
-          <div onclick="showAttendance('${cls.class_no}', '${courseCode}')">${cls.class_no}</div>
+          <div onclick="showAttendance('${cls.class_no}', '${courseCode}', document.getElementById('attendance-date-picker').value)">
+            ${cls.class_no}
+          </div>
         `;
         classesContainer.appendChild(classDiv);
       });
@@ -26,15 +28,14 @@ function showClasses(courseCode) {
     .catch(error => console.error('Error fetching classes:', error));
 }
 
-function showAttendance(classNo, courseCode) {
-  fetch(`../php/get_attendance_data.php?class_no=${classNo}&date=2024-09-01`)
+function showAttendance(classNo, courseCode, date) {
+  fetch(`../php/get_attendance_data.php?class_no=${classNo}&date=${date}`)
     .then(response => response.json())
     .then(data => {
       const attendancePage = document.getElementById('attendance-page');
       const attendanceTbody = attendancePage.querySelector('#attendance-tbody');
       const classHeader = document.getElementById('class-header');
 
-      // Correctly set the header to show course code and class number
       classHeader.innerText = `${courseCode} ${classNo}`;
 
       if (!attendanceTbody) {
@@ -42,7 +43,7 @@ function showAttendance(classNo, courseCode) {
         return;
       }
 
-      attendanceTbody.innerHTML = ''; // Clear any previous data
+      attendanceTbody.innerHTML = ''; // Clear previous data
 
       data.forEach(record => {
         const row = document.createElement('tr');
@@ -70,6 +71,12 @@ function showAttendance(classNo, courseCode) {
     .catch(error => console.error('Error fetching attendance:', error));
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+  const datePicker = document.getElementById('attendance-date-picker');
+  const today = new Date().toISOString().split('T')[0];
+  datePicker.value = today;
+});
+
 function showPage(pageId) {
   const pages = document.querySelectorAll('.page');
   pages.forEach(page => {
@@ -77,6 +84,15 @@ function showPage(pageId) {
   });
   document.getElementById(pageId).classList.add('active');
 }
+
+function updateAttendanceDate() {
+  const date = document.getElementById('attendance-date-picker').value;
+  const classHeader = document.getElementById('class-header').innerText.split(' ');
+  const courseCode = classHeader[0];
+  const classNo = classHeader[1];
+  showAttendance(classNo, courseCode, date);
+}
+
 
 function goBack() {
   const currentActivePage = document.querySelector('.page.active');
