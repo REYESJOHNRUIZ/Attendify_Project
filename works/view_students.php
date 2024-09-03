@@ -9,13 +9,12 @@ if (!isset($_SESSION['prof_id'])) {
 
 // Fetch professor's courses
 $prof_id = $_SESSION['prof_id'];
+
 $courses_stmt = $conn->prepare("
-    SELECT co.course_code, c.class_no
-    FROM courses co
-    JOIN class c ON co.courses_id = c.courses_id
-    WHERE c.prof_id = ?
+    select distinct class_no, course_code from class 
+    join courses on class.courses_id = courses.courses_id
 ");
-$courses_stmt->bind_param("s", $prof_id);
+
 $courses_stmt->execute();
 $courses_result = $courses_stmt->get_result();
 $courses_data = $courses_result->fetch_all(MYSQLI_ASSOC);
