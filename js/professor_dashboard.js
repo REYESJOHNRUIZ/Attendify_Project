@@ -1,6 +1,6 @@
 let classNo = '';
 let courseCode = '';
-
+let tablejson;
 document.addEventListener('DOMContentLoaded', () => {
     const datePicker = document.getElementById('attendance-date-picker');
     const today = new Date().toISOString().split('T')[0];
@@ -55,6 +55,7 @@ function showAttendance(classNo, courseCode, date) {
   fetch(`../php/get_attendance_data.php?class_no=${classNo}&date=${date}`)
       .then(response => response.json())
       .then(data => {
+        tablejson = data;       
           const attendancePage = document.getElementById('attendance-page');
           const attendanceTbody = attendancePage.querySelector('#attendance-tbody');
           const classHeader = document.getElementById('class-header');
@@ -169,4 +170,40 @@ function goBack() {
     } else {
         console.error('No previous page to navigate to.');
     }
+}
+function jsonToCSV(jsonData) {
+    const csvRows = [];
+    
+    const headers = Object.keys(jsonData[0]);
+    csvRows.push(headers.join(','));
+    
+    for (const row of jsonData) {
+        const values = headers.map(header => JSON.stringify(row[header] || ''));
+        csvRows.push(values.join(','));
+    }
+    
+    return csvRows.join('\n');
+}
+function downloadData() {
+    const csvData = jsonToCSV(tablejson);  // tablejson is the JSON data you want to convert and download
+    
+    // Create a Blob from the CSV string
+    const blob = new Blob([csvData], { type: 'text/csv' });
+    
+    // Create a link element
+    const link = document.createElement('a');
+    
+    // Create a URL for the Blob and set it as the href attribute
+    link.href = URL.createObjectURL(blob);
+    
+    // Set the download attribute with a filename
+    link.download = 'data.csv';
+    
+    // Append the link to the document body
+    document.body.appendChild(link);
+    
+    // Programmatically click the link to trigger the download
+    link.click();
+    
+    document.body.removeChild(link);
 }
