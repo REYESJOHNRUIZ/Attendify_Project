@@ -3,12 +3,12 @@ session_start();
 require '../db_connect.php';
 
 if (!isset($_SESSION['prof_id'])) {
-    header("Location: ../works/log_in_form.html");
-    exit;
+  header("Location: ../works/log_in_form.html");
+  exit;
 }
 
 if (!isset($_SESSION['prof_name'])) {
-    die("Error: 'prof_name' is not set in session. Please check your login process.");
+  die("Error: 'prof_name' is not set in session. Please check your login process.");
 }
 
 $prof_id = $_SESSION['prof_id'];
@@ -30,14 +30,18 @@ $course_name = $data['course_code'];
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Attendify</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Public+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Public+Sans:wght@300;400;600&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="../styles/professor_dashboard_styles.css">
 </head>
+
 <body>
   <div class="container">
     <div class="sidebar">
@@ -52,7 +56,6 @@ $course_name = $data['course_code'];
         </div>
       </div>
       <div class="bottom-items">
-        <button class="view-students" onclick="location.href='view_students.php'">View Students</button>
         <button class="back" onclick="goBack()">
           <i class="fas fa-arrow-left"></i> BACK
         </button>
@@ -96,6 +99,7 @@ $course_name = $data['course_code'];
           <label for="attendance-date-picker">Select Date: </label>
           <input type="date" id="attendance-date-picker" onchange="updateAttendanceDate()">
         </div>
+        <a class="view-students" href="view_students.php">ViewStudents</a>
 
         <table>
           <thead>
@@ -118,4 +122,5 @@ $course_name = $data['course_code'];
   </div>
   <script src="../js/professor_dashboard.js"></script>
 </body>
+
 </html>

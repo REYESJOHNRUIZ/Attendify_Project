@@ -243,14 +243,16 @@ td {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 20px;
+  padding: 10px 25px;
   background-color: #d9b382;
   color: white;
   border: none;
   cursor: pointer;
   border-radius: 5px;
   font-size: 14px;
-  width: 100%;
+  width: 55px;
+  text-decoration: none;
+  margin-top: 15px;
   font-family: "Public Sans", sans-serif;
 }
 
