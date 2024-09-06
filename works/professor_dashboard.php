@@ -116,7 +116,7 @@ $course_name = $data['course_code'];
           </tbody>
         </table>
         <button class="upload" onclick="saveAttendance()">Save Attendance</button>
-        <button class="download" onclick="downloadData()">DownloadData</button>
+        <button class="upload" onclick="downloadData()">DownloadData</button>
       </div>
     </div>
   </div>
