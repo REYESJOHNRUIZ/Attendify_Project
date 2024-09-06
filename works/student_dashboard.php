@@ -34,13 +34,13 @@ if ($section) {
 }
 
 // Fetch attendance dates
-$stmt = $conn->prepare("SELECT DISTINCT date FROM attendance WHERE student_no = ?");
+$stmt = $conn->prepare("SELECT DISTINCT date, status FROM attendance WHERE student_no = ?");
 $stmt->bind_param("s", $student_number);
 $stmt->execute();
 $dates_result = $stmt->get_result();
 $dates = [];
 while ($row = $dates_result->fetch_assoc()) {
-    $dates[] = $row['date'];
+    $dates[$row['date']] = $row['status'];
 }
 
 $dates_json = json_encode($dates);
@@ -91,40 +91,91 @@ $dates_json = json_encode($dates);
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function () {
             const ctx = document.getElementById('attendanceChart').getContext('2d');
+            const attendanceKeys = Object.keys(attendanceDates).map(date => date);
+            const attendanceValues = Object.values(attendanceDates).map(status => status);
+            const statusMapping = {
+                "Present": 1,
+                "Absent": 0,
+                "Excused": 0.5
+            };
 
-            // Assuming attendanceDates is an array of date strings
+            // Map attendanceValues to numerical data for plotting on Y-axis
+            const attendanceNumericalValues = attendanceValues.map(status => statusMapping[status]);
+
+            // Chart.js data object
             const data = {
-                labels: attendanceDates, // X-axis labels (dates)
+                labels: attendanceKeys, // X-axis labels (dates)
                 datasets: [{
                     label: 'Attendance',
-                    data: attendanceDates.map(() => 1), // Y-axis values (e.g., all 1 for attended)
+                    data: attendanceNumericalValues, // Y-axis numerical data
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1
                 }]
             };
 
+            // Chart configuration
             const config = {
-                type: 'line', // You can change this to 'bar', 'pie', etc.
+                type: 'bar', // Use a bar chart or any other chart type
                 data: data,
                 options: {
                     scales: {
                         y: {
                             beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Attendance Count'
+                            ticks: {
+                                // Custom Y-axis labels for statuses
+                                callback: function (value, index, values) {
+                                    const statusLabels = ["Absent", "Late", "Present"];
+                                    return statusLabels[value];
+                                }
                             }
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Date'
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (tooltipItem) {
+                                    // Return the status text instead of the number in tooltips
+                                    const statuses = attendanceValues[tooltipItem.dataIndex];
+                                    return `Status: ${statuses}`;
+                                }
                             }
                         }
                     }
                 }
             };
+            // const data = {
+            //     labels: attendanceKeys, // X-axis labels (dates)
+            //     datasets: [{
+            //         label: 'Attendance',
+            //         data: attendanceValues,
+            //         backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            //         borderColor: 'rgba(75, 192, 192, 1)',
+            //         borderWidth: 1
+            //     }]
+            // };
+
+            // const config = {
+            //     type: 'line', // You can change this to 'bar', 'pie', etc.
+            //     data: data,
+            //     options: {
+            //         scales: {
+            //             y: {
+            //                 beginAtZero: true,
+            //                 title: {
+            //                     display: true,
+            //                     text: 'Attendance Count'
+            //                 }
+            //             },
+            //             x: {
+            //                 title: {
+            //                     display: true,
+            //                     text: 'Date'
+            //                 }
+            //             }
+            //         }
+            //     }
+            // };
 
             const attendanceChart = new Chart(ctx, config);
 
