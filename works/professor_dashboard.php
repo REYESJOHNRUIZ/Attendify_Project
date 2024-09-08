@@ -3,8 +3,7 @@ session_start();
 require '../db_connect.php';
 
 if (!isset($_SESSION['prof_id'])) {
-  header("Location: ../works/log_in_form.html");
-  exit;
+  header("Location: ../works/log_in_form.php");
 }
 
 if (!isset($_SESSION['prof_name'])) {

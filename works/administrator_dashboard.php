@@ -1,6 +1,9 @@
 <?php
 require '../db_connect.php';
-
+session_start();
+if (!isset($_SESSION['admin_id'])) {
+  header("Location: ../works/login_in_form.php");
+}
 // Fetch Student Data
 $student_query = "SELECT id, lastname, firstname, email FROM student";
 $student_result = $conn->query($student_query);

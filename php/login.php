@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             echo "Password updated and is correct";
         } else {
-            header("Location: ../works/log_in_form.html?error=loginfailed");
+            header("Location: ../works/log_in_form.php?error=loginfailed");
             exit();
         }
 
@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         exit();
     } else {
-        header("Location: ../works/log_in_form.html?error=loginfailed");
+        header("Location: ../works/log_in_form.php?error=loginfailed");
         exit();
     }
 }
