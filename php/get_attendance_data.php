@@ -11,7 +11,7 @@ $class_no = $_GET['class_no'];
 $date = $_GET['date'];
 
 $stmt = $conn->prepare("
-    SELECT s.student_number, s.firstname AS first_name, s.lastname AS last_name, a.status
+    SELECT s.student_number, s.firstname AS first_name, s.lastname AS last_name, a.status, a.date
     FROM class c
     INNER JOIN student s ON c.student_no = s.student_number
     LEFT JOIN attendance a ON a.student_no = c.student_no AND a.class_no = c.class_no AND a.date = ?
@@ -28,7 +28,8 @@ while ($row = $result->fetch_assoc()) {
         'student_no' => $row['student_number'],
         'first_name' => $row['first_name'],
         'last_name' => $row['last_name'],
-        'status' => $row['status']
+        'status' => $row['status'],
+        'date' => $row['date']
     );
 }
 

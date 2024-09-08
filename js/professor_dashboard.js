@@ -1,5 +1,6 @@
 let classNo = '';
 let courseCode = '';
+let date;
 let tablejson;
 document.addEventListener('DOMContentLoaded', () => {
     const datePicker = document.getElementById('attendance-date-picker');
@@ -7,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     datePicker.value = today;
 
     datePicker.addEventListener('change', () => {
-        const date = datePicker.value;
+         date = datePicker.value;
         if (classNo && courseCode) {
             showAttendance(classNo, courseCode, date);
         } else {
@@ -184,8 +185,10 @@ function jsonToCSV(jsonData) {
     
     return csvRows.join('\n');
 }
-function downloadData() {
-    const csvData = jsonToCSV(tablejson);  // tablejson is the JSON data you want to convert and download
+async function downloadData() {
+    const response = await fetch(`../php/get_attendance_data.php?class_no=${classNo}&date=${date}`)
+    const data = await response.json();
+    const csvData = jsonToCSV(data);  // tablejson is the JSON data you want to convert and download
     
     // Create a Blob from the CSV string
     const blob = new Blob([csvData], { type: 'text/csv' });
