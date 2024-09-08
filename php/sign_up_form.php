@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   // Execute the query and check for success
   if ($stmt->execute()) {
-    echo "<script>alert('Sign up successful. Redirecting to login...'); window.location.href = '../works/log_in_form.html';</script>";
+    echo "<script>alert('Sign up successful. Redirecting to login...'); window.location.href = '../works/log_in_form.php';</script>";
   } else {
     echo "<script>alert('Error: " . $stmt->error . "'); window.history.back();</script>";
   }
